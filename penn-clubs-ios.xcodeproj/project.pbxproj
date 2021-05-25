@@ -3,23 +3,55 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6C2B125F2656E3BB00A08BA1 /* response-copy.json in Resources */ = {isa = PBXBuildFile; fileRef = 6C2B125E2656E3BB00A08BA1 /* response-copy.json */; };
 		6C4B1D712655571100EBBF4B /* penn_clubs_iosApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C4B1D702655571100EBBF4B /* penn_clubs_iosApp.swift */; };
 		6C4B1D732655571100EBBF4B /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C4B1D722655571100EBBF4B /* ContentView.swift */; };
 		6C4B1D752655571200EBBF4B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6C4B1D742655571200EBBF4B /* Assets.xcassets */; };
 		6C4B1D782655571200EBBF4B /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6C4B1D772655571200EBBF4B /* Preview Assets.xcassets */; };
+		6C6B38412655AA6D00E812A5 /* ClubRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C6B38402655AA6D00E812A5 /* ClubRow.swift */; };
+		6C6B38442655AADE00E812A5 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 6C6B38432655AADE00E812A5 /* Kingfisher */; };
+		6C6B38482655B0F400E812A5 /* ClubDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C6B38472655B0F400E812A5 /* ClubDetailView.swift */; };
+		6C6B384B2655B3B800E812A5 /* FadingScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C6B384A2655B3B800E812A5 /* FadingScrollView.swift */; };
+		6C7297362656B1B400AA6D39 /* Modal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C7297352656B1B400AA6D39 /* Modal.swift */; };
+		6C7297382656E29D00AA6D39 /* response.json in Resources */ = {isa = PBXBuildFile; fileRef = 6C7297372656E29D00AA6D39 /* response.json */; };
+		6CB40EF526560D05006EBB0D /* MoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CB40EF426560D05006EBB0D /* MoreView.swift */; };
+		6CB40EF926560D81006EBB0D /* EventsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CB40EF826560D81006EBB0D /* EventsView.swift */; };
+		6CB40EFC26561257006EBB0D /* PartialSheet in Frameworks */ = {isa = PBXBuildFile; productRef = 6CB40EFB26561257006EBB0D /* PartialSheet */; };
+		6CBED3A726555EAF0094AEF9 /* HomeTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CBED3A626555EAF0094AEF9 /* HomeTabView.swift */; };
+		6CBED3AB26557E050094AEF9 /* ControllerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CBED3AA26557E050094AEF9 /* ControllerModel.swift */; };
+		6CBED3B126557EE30094AEF9 /* ClubModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CBED3B026557EE30094AEF9 /* ClubModel.swift */; };
+		6CBED3B62655830C0094AEF9 /* Networking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CBED3B52655830C0094AEF9 /* Networking.swift */; };
+		6CBED3B926559DEC0094AEF9 /* ClubsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CBED3B826559DEC0094AEF9 /* ClubsView.swift */; };
+		6CD49C6C2655B88600144B55 /* ClubsMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CD49C6B2655B88600144B55 /* ClubsMapView.swift */; };
+		6CD49C6E2655F89200144B55 /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CD49C6D2655F89200144B55 /* SearchBar.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		6C2B125E2656E3BB00A08BA1 /* response-copy.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "response-copy.json"; sourceTree = "<group>"; };
 		6C4B1D6D2655571100EBBF4B /* penn-clubs-ios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "penn-clubs-ios.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6C4B1D702655571100EBBF4B /* penn_clubs_iosApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = penn_clubs_iosApp.swift; sourceTree = "<group>"; };
 		6C4B1D722655571100EBBF4B /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		6C4B1D742655571200EBBF4B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		6C4B1D772655571200EBBF4B /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		6C4B1D792655571200EBBF4B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		6C6B38402655AA6D00E812A5 /* ClubRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClubRow.swift; sourceTree = "<group>"; };
+		6C6B38472655B0F400E812A5 /* ClubDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClubDetailView.swift; sourceTree = "<group>"; };
+		6C6B384A2655B3B800E812A5 /* FadingScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FadingScrollView.swift; sourceTree = "<group>"; };
+		6C7297352656B1B400AA6D39 /* Modal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Modal.swift; sourceTree = "<group>"; };
+		6C7297372656E29D00AA6D39 /* response.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = response.json; sourceTree = "<group>"; };
+		6CB40EF426560D05006EBB0D /* MoreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoreView.swift; sourceTree = "<group>"; };
+		6CB40EF826560D81006EBB0D /* EventsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsView.swift; sourceTree = "<group>"; };
+		6CBED3A626555EAF0094AEF9 /* HomeTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTabView.swift; sourceTree = "<group>"; };
+		6CBED3AA26557E050094AEF9 /* ControllerModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ControllerModel.swift; sourceTree = "<group>"; };
+		6CBED3B026557EE30094AEF9 /* ClubModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClubModel.swift; sourceTree = "<group>"; };
+		6CBED3B52655830C0094AEF9 /* Networking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Networking.swift; sourceTree = "<group>"; };
+		6CBED3B826559DEC0094AEF9 /* ClubsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClubsView.swift; sourceTree = "<group>"; };
+		6CD49C6B2655B88600144B55 /* ClubsMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClubsMapView.swift; sourceTree = "<group>"; };
+		6CD49C6D2655F89200144B55 /* SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -27,6 +59,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6CB40EFC26561257006EBB0D /* PartialSheet in Frameworks */,
+				6C6B38442655AADE00E812A5 /* Kingfisher in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -52,11 +86,16 @@
 		6C4B1D6F2655571100EBBF4B /* penn-clubs-ios */ = {
 			isa = PBXGroup;
 			children = (
-				6C4B1D702655571100EBBF4B /* penn_clubs_iosApp.swift */,
-				6C4B1D722655571100EBBF4B /* ContentView.swift */,
+				6CB40EF726560D74006EBB0D /* Events */,
+				6C6B38492655B39200E812A5 /* View Templates */,
+				6CB40EF626560D32006EBB0D /* Maps */,
+				6CBED3B726559D820094AEF9 /* Setup */,
+				6CBED3AC26557E6B0094AEF9 /* Clubs */,
+				6CB40EF326560CEC006EBB0D /* More Tab */,
 				6C4B1D742655571200EBBF4B /* Assets.xcassets */,
 				6C4B1D792655571200EBBF4B /* Info.plist */,
 				6C4B1D762655571200EBBF4B /* Preview Content */,
+				6CBED3B52655830C0094AEF9 /* Networking.swift */,
 			);
 			path = "penn-clubs-ios";
 			sourceTree = "<group>";
@@ -67,6 +106,96 @@
 				6C4B1D772655571200EBBF4B /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		6C6B38492655B39200E812A5 /* View Templates */ = {
+			isa = PBXGroup;
+			children = (
+				6C7297342656B1A900AA6D39 /* Modal */,
+				6C6B384A2655B3B800E812A5 /* FadingScrollView.swift */,
+				6CD49C6D2655F89200144B55 /* SearchBar.swift */,
+			);
+			path = "View Templates";
+			sourceTree = "<group>";
+		};
+		6C7297342656B1A900AA6D39 /* Modal */ = {
+			isa = PBXGroup;
+			children = (
+				6C7297352656B1B400AA6D39 /* Modal.swift */,
+			);
+			path = Modal;
+			sourceTree = "<group>";
+		};
+		6CB40EF326560CEC006EBB0D /* More Tab */ = {
+			isa = PBXGroup;
+			children = (
+				6CB40EF426560D05006EBB0D /* MoreView.swift */,
+			);
+			path = "More Tab";
+			sourceTree = "<group>";
+		};
+		6CB40EF626560D32006EBB0D /* Maps */ = {
+			isa = PBXGroup;
+			children = (
+				6CD49C6B2655B88600144B55 /* ClubsMapView.swift */,
+				6C2B125E2656E3BB00A08BA1 /* response-copy.json */,
+			);
+			path = Maps;
+			sourceTree = "<group>";
+		};
+		6CB40EF726560D74006EBB0D /* Events */ = {
+			isa = PBXGroup;
+			children = (
+				6CB40EF826560D81006EBB0D /* EventsView.swift */,
+			);
+			path = Events;
+			sourceTree = "<group>";
+		};
+		6CBED3AC26557E6B0094AEF9 /* Clubs */ = {
+			isa = PBXGroup;
+			children = (
+				6CBED3B4265582640094AEF9 /* View */,
+				6CBED3B32655825B0094AEF9 /* Networking */,
+				6CBED3B2265582560094AEF9 /* Model */,
+			);
+			path = Clubs;
+			sourceTree = "<group>";
+		};
+		6CBED3B2265582560094AEF9 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				6CBED3B026557EE30094AEF9 /* ClubModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		6CBED3B32655825B0094AEF9 /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Networking;
+			sourceTree = "<group>";
+		};
+		6CBED3B4265582640094AEF9 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				6CBED3B826559DEC0094AEF9 /* ClubsView.swift */,
+				6C6B38402655AA6D00E812A5 /* ClubRow.swift */,
+				6C6B38472655B0F400E812A5 /* ClubDetailView.swift */,
+				6C7297372656E29D00AA6D39 /* response.json */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		6CBED3B726559D820094AEF9 /* Setup */ = {
+			isa = PBXGroup;
+			children = (
+				6C4B1D702655571100EBBF4B /* penn_clubs_iosApp.swift */,
+				6CBED3AA26557E050094AEF9 /* ControllerModel.swift */,
+				6C4B1D722655571100EBBF4B /* ContentView.swift */,
+				6CBED3A626555EAF0094AEF9 /* HomeTabView.swift */,
+			);
+			path = Setup;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -85,6 +214,10 @@
 			dependencies = (
 			);
 			name = "penn-clubs-ios";
+			packageProductDependencies = (
+				6C6B38432655AADE00E812A5 /* Kingfisher */,
+				6CB40EFB26561257006EBB0D /* PartialSheet */,
+			);
 			productName = "penn-clubs-ios";
 			productReference = 6C4B1D6D2655571100EBBF4B /* penn-clubs-ios.app */;
 			productType = "com.apple.product-type.application";
@@ -112,6 +245,10 @@
 				Base,
 			);
 			mainGroup = 6C4B1D642655571100EBBF4B;
+			packageReferences = (
+				6C6B38422655AADE00E812A5 /* XCRemoteSwiftPackageReference "Kingfisher" */,
+				6CB40EFA26561257006EBB0D /* XCRemoteSwiftPackageReference "PartialSheet" */,
+			);
 			productRefGroup = 6C4B1D6E2655571100EBBF4B /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -126,6 +263,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6C7297382656E29D00AA6D39 /* response.json in Resources */,
+				6C2B125F2656E3BB00A08BA1 /* response-copy.json in Resources */,
 				6C4B1D782655571200EBBF4B /* Preview Assets.xcassets in Resources */,
 				6C4B1D752655571200EBBF4B /* Assets.xcassets in Resources */,
 			);
@@ -138,8 +277,21 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6CD49C6E2655F89200144B55 /* SearchBar.swift in Sources */,
+				6C7297362656B1B400AA6D39 /* Modal.swift in Sources */,
+				6CB40EF926560D81006EBB0D /* EventsView.swift in Sources */,
+				6CBED3B126557EE30094AEF9 /* ClubModel.swift in Sources */,
+				6CBED3B926559DEC0094AEF9 /* ClubsView.swift in Sources */,
+				6C6B38482655B0F400E812A5 /* ClubDetailView.swift in Sources */,
+				6CD49C6C2655B88600144B55 /* ClubsMapView.swift in Sources */,
+				6C6B38412655AA6D00E812A5 /* ClubRow.swift in Sources */,
+				6CB40EF526560D05006EBB0D /* MoreView.swift in Sources */,
 				6C4B1D732655571100EBBF4B /* ContentView.swift in Sources */,
+				6CBED3B62655830C0094AEF9 /* Networking.swift in Sources */,
+				6CBED3A726555EAF0094AEF9 /* HomeTabView.swift in Sources */,
+				6C6B384B2655B3B800E812A5 /* FadingScrollView.swift in Sources */,
 				6C4B1D712655571100EBBF4B /* penn_clubs_iosApp.swift in Sources */,
+				6CBED3AB26557E050094AEF9 /* ControllerModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -328,6 +480,38 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		6C6B38422655AADE00E812A5 /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/onevcat/Kingfisher.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 6.0.0;
+			};
+		};
+		6CB40EFA26561257006EBB0D /* XCRemoteSwiftPackageReference "PartialSheet" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/AndreaMiotto/PartialSheet.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.1.11;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		6C6B38432655AADE00E812A5 /* Kingfisher */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6C6B38422655AADE00E812A5 /* XCRemoteSwiftPackageReference "Kingfisher" */;
+			productName = Kingfisher;
+		};
+		6CB40EFB26561257006EBB0D /* PartialSheet */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6CB40EFA26561257006EBB0D /* XCRemoteSwiftPackageReference "PartialSheet" */;
+			productName = PartialSheet;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 6C4B1D652655571100EBBF4B /* Project object */;
 }
