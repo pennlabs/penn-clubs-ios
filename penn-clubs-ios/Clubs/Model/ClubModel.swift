@@ -7,6 +7,40 @@
 
 import Foundation
 
+class ClubResponseViewModel: InfiniteListDataSource<ClubResponse> {
+//    static let instance = ClubResponseViewModel()
+    
+    var searchQuery = ""
+    
+    override func getUrl(pageNumber: Int) -> String {
+        var baseUrl = "https://pennclubs.com/api/clubs/?page=\(pageNumber)"
+        
+        if !searchQuery.isEmpty {
+            baseUrl += "&search=\(searchQuery.trimmingCharacters(in: .whitespaces).replacingOccurrences(of: " ", with: "+"))"
+        }
+        
+        return baseUrl
+    }
+}
+
+struct ClubResponse: InfiniteListData, Codable {
+    static var dateDecodingStrategy: String? = "yyyy-MM-dd"
+    
+    typealias Item = ClubModel
+    
+    var hasMorePages: Bool {
+        return next != nil
+    }
+    
+    var items: [ClubModel]
+    let next: String?
+    
+    enum CodingKeys: String, CodingKey {
+        case items = "results"
+        case next
+    }
+}
+
 struct ClubModel: Codable, Identifiable {
     var id: String {
         return code
@@ -24,10 +58,10 @@ struct ClubModel: Codable, Identifiable {
     let email: String?
     let enablesSubscription: Bool
     let favoriteCount: Int?
-    let founded: Date?
+    let founded: String?
     let imageURL: String?
     let isFavorite: Bool
-//    let isMember: String
+    let isMember: Bool
     let isSubscribe: Bool
     let membershipCount: Int?
     let recuritingCycleClassification: Int
@@ -51,7 +85,7 @@ struct ClubModel: Codable, Identifiable {
         case founded
         case imageURL = "image_url"
         case isFavorite = "is_favorite"
-//        case isMember = "is_member"
+        case isMember = "is_member"
         case isSubscribe = "is_subscribe"
         case membershipCount = "membership_count"
         case recuritingCycleClassification = "recruiting_cycle"

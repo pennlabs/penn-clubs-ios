@@ -8,6 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		6C2B125F2656E3BB00A08BA1 /* response-copy.json in Resources */ = {isa = PBXBuildFile; fileRef = 6C2B125E2656E3BB00A08BA1 /* response-copy.json */; };
+		6C3BE918269FFE4400FBB81A /* SecureStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C3BE917269FFE4400FBB81A /* SecureStore.swift */; };
+		6C3BE91B26A0EC8F00FBB81A /* WKPennLogin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C3BE91A26A0EC8F00FBB81A /* WKPennLogin.swift */; };
+		6C3BE91D26A0ECB100FBB81A /* WKNetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C3BE91C26A0ECB100FBB81A /* WKNetworkManager.swift */; };
+		6C3BE91F26A0ECC900FBB81A /* WKPennLoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C3BE91E26A0ECC900FBB81A /* WKPennLoginController.swift */; };
+		6C3BE92126A0EE0200FBB81A /* WKPennLoginSwiftUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C3BE92026A0EE0200FBB81A /* WKPennLoginSwiftUI.swift */; };
 		6C4B1D712655571100EBBF4B /* penn_clubs_iosApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C4B1D702655571100EBBF4B /* penn_clubs_iosApp.swift */; };
 		6C4B1D732655571100EBBF4B /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C4B1D722655571100EBBF4B /* ContentView.swift */; };
 		6C4B1D752655571200EBBF4B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6C4B1D742655571200EBBF4B /* Assets.xcassets */; };
@@ -17,7 +22,7 @@
 		6C6B38482655B0F400E812A5 /* ClubDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C6B38472655B0F400E812A5 /* ClubDetailView.swift */; };
 		6C6B384B2655B3B800E812A5 /* FadingScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C6B384A2655B3B800E812A5 /* FadingScrollView.swift */; };
 		6C7297362656B1B400AA6D39 /* Modal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C7297352656B1B400AA6D39 /* Modal.swift */; };
-		6C7297382656E29D00AA6D39 /* response.json in Resources */ = {isa = PBXBuildFile; fileRef = 6C7297372656E29D00AA6D39 /* response.json */; };
+		6C7D1A8C265D8E6C005B7744 /* AlertManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C7D1A8B265D8E6C005B7744 /* AlertManager.swift */; };
 		6CB40EF526560D05006EBB0D /* MoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CB40EF426560D05006EBB0D /* MoreView.swift */; };
 		6CB40EF926560D81006EBB0D /* EventsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CB40EF826560D81006EBB0D /* EventsView.swift */; };
 		6CB40EFC26561257006EBB0D /* PartialSheet in Frameworks */ = {isa = PBXBuildFile; productRef = 6CB40EFB26561257006EBB0D /* PartialSheet */; };
@@ -28,10 +33,22 @@
 		6CBED3B926559DEC0094AEF9 /* ClubsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CBED3B826559DEC0094AEF9 /* ClubsView.swift */; };
 		6CD49C6C2655B88600144B55 /* ClubsMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CD49C6B2655B88600144B55 /* ClubsMapView.swift */; };
 		6CD49C6E2655F89200144B55 /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CD49C6D2655F89200144B55 /* SearchBar.swift */; };
+		6CDE07BC26A108E600CE22A3 /* SwiftUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CDE07BB26A108E600CE22A3 /* SwiftUIView.swift */; };
+		6CDE07BE26A1392300CE22A3 /* SchoolModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CDE07BD26A1392300CE22A3 /* SchoolModel.swift */; };
+		6CDE07C126A139AE00CE22A3 /* ProfileModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CDE07C026A139AE00CE22A3 /* ProfileModel.swift */; };
+		6CDE07C326A13A4700CE22A3 /* MajorModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CDE07C226A13A4700CE22A3 /* MajorModel.swift */; };
+		6CDE07C626A13C1D00CE22A3 /* SettingsAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CDE07C526A13C1D00CE22A3 /* SettingsAPI.swift */; };
+		6CDE07C926A1419B00CE22A3 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 6CDE07C826A1419B00CE22A3 /* Alamofire */; };
+		6CDE07CB26A1C9E700CE22A3 /* InfiniteList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CDE07CA26A1C9E700CE22A3 /* InfiniteList.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		6C2B125E2656E3BB00A08BA1 /* response-copy.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "response-copy.json"; sourceTree = "<group>"; };
+		6C3BE917269FFE4400FBB81A /* SecureStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecureStore.swift; sourceTree = "<group>"; };
+		6C3BE91A26A0EC8F00FBB81A /* WKPennLogin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WKPennLogin.swift; sourceTree = "<group>"; };
+		6C3BE91C26A0ECB100FBB81A /* WKNetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WKNetworkManager.swift; sourceTree = "<group>"; };
+		6C3BE91E26A0ECC900FBB81A /* WKPennLoginController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WKPennLoginController.swift; sourceTree = "<group>"; };
+		6C3BE92026A0EE0200FBB81A /* WKPennLoginSwiftUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WKPennLoginSwiftUI.swift; sourceTree = "<group>"; };
 		6C4B1D6D2655571100EBBF4B /* penn-clubs-ios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "penn-clubs-ios.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6C4B1D702655571100EBBF4B /* penn_clubs_iosApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = penn_clubs_iosApp.swift; sourceTree = "<group>"; };
 		6C4B1D722655571100EBBF4B /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -42,7 +59,7 @@
 		6C6B38472655B0F400E812A5 /* ClubDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClubDetailView.swift; sourceTree = "<group>"; };
 		6C6B384A2655B3B800E812A5 /* FadingScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FadingScrollView.swift; sourceTree = "<group>"; };
 		6C7297352656B1B400AA6D39 /* Modal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Modal.swift; sourceTree = "<group>"; };
-		6C7297372656E29D00AA6D39 /* response.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = response.json; sourceTree = "<group>"; };
+		6C7D1A8B265D8E6C005B7744 /* AlertManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertManager.swift; sourceTree = "<group>"; };
 		6CB40EF426560D05006EBB0D /* MoreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoreView.swift; sourceTree = "<group>"; };
 		6CB40EF826560D81006EBB0D /* EventsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsView.swift; sourceTree = "<group>"; };
 		6CBED3A626555EAF0094AEF9 /* HomeTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTabView.swift; sourceTree = "<group>"; };
@@ -52,6 +69,12 @@
 		6CBED3B826559DEC0094AEF9 /* ClubsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClubsView.swift; sourceTree = "<group>"; };
 		6CD49C6B2655B88600144B55 /* ClubsMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClubsMapView.swift; sourceTree = "<group>"; };
 		6CD49C6D2655F89200144B55 /* SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
+		6CDE07BB26A108E600CE22A3 /* SwiftUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUIView.swift; sourceTree = "<group>"; };
+		6CDE07BD26A1392300CE22A3 /* SchoolModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchoolModel.swift; sourceTree = "<group>"; };
+		6CDE07C026A139AE00CE22A3 /* ProfileModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileModel.swift; sourceTree = "<group>"; };
+		6CDE07C226A13A4700CE22A3 /* MajorModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MajorModel.swift; sourceTree = "<group>"; };
+		6CDE07C526A13C1D00CE22A3 /* SettingsAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsAPI.swift; sourceTree = "<group>"; };
+		6CDE07CA26A1C9E700CE22A3 /* InfiniteList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfiniteList.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,6 +82,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6CDE07C926A1419B00CE22A3 /* Alamofire in Frameworks */,
 				6CB40EFC26561257006EBB0D /* PartialSheet in Frameworks */,
 				6C6B38442655AADE00E812A5 /* Kingfisher in Frameworks */,
 			);
@@ -67,6 +91,25 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		6C3BE916269FFE2E00FBB81A /* Storage */ = {
+			isa = PBXGroup;
+			children = (
+				6C3BE917269FFE4400FBB81A /* SecureStore.swift */,
+			);
+			path = Storage;
+			sourceTree = "<group>";
+		};
+		6C3BE91926A0EC5B00FBB81A /* Auth */ = {
+			isa = PBXGroup;
+			children = (
+				6C3BE91A26A0EC8F00FBB81A /* WKPennLogin.swift */,
+				6C3BE91C26A0ECB100FBB81A /* WKNetworkManager.swift */,
+				6C3BE91E26A0ECC900FBB81A /* WKPennLoginController.swift */,
+				6C3BE92026A0EE0200FBB81A /* WKPennLoginSwiftUI.swift */,
+			);
+			path = Auth;
+			sourceTree = "<group>";
+		};
 		6C4B1D642655571100EBBF4B = {
 			isa = PBXGroup;
 			children = (
@@ -86,6 +129,9 @@
 		6C4B1D6F2655571100EBBF4B /* penn-clubs-ios */ = {
 			isa = PBXGroup;
 			children = (
+				6C3BE91926A0EC5B00FBB81A /* Auth */,
+				6C3BE916269FFE2E00FBB81A /* Storage */,
+				6C7D1A8A265D8E5E005B7744 /* Alerts */,
 				6CB40EF726560D74006EBB0D /* Events */,
 				6C6B38492655B39200E812A5 /* View Templates */,
 				6CB40EF626560D32006EBB0D /* Maps */,
@@ -114,6 +160,7 @@
 				6C7297342656B1A900AA6D39 /* Modal */,
 				6C6B384A2655B3B800E812A5 /* FadingScrollView.swift */,
 				6CD49C6D2655F89200144B55 /* SearchBar.swift */,
+				6CDE07CA26A1C9E700CE22A3 /* InfiniteList.swift */,
 			);
 			path = "View Templates";
 			sourceTree = "<group>";
@@ -126,9 +173,26 @@
 			path = Modal;
 			sourceTree = "<group>";
 		};
+		6C7D1A8A265D8E5E005B7744 /* Alerts */ = {
+			isa = PBXGroup;
+			children = (
+				6C7D1A8B265D8E6C005B7744 /* AlertManager.swift */,
+			);
+			path = Alerts;
+			sourceTree = "<group>";
+		};
+		6C7D1A8D265DA8D3005B7744 /* Filter */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Filter;
+			sourceTree = "<group>";
+		};
 		6CB40EF326560CEC006EBB0D /* More Tab */ = {
 			isa = PBXGroup;
 			children = (
+				6CDE07C426A13C0C00CE22A3 /* Networking */,
+				6CDE07BF26A1396600CE22A3 /* Model */,
 				6CB40EF426560D05006EBB0D /* MoreView.swift */,
 			);
 			path = "More Tab";
@@ -147,6 +211,7 @@
 			isa = PBXGroup;
 			children = (
 				6CB40EF826560D81006EBB0D /* EventsView.swift */,
+				6CDE07BB26A108E600CE22A3 /* SwiftUIView.swift */,
 			);
 			path = Events;
 			sourceTree = "<group>";
@@ -179,10 +244,10 @@
 		6CBED3B4265582640094AEF9 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				6C7D1A8D265DA8D3005B7744 /* Filter */,
 				6CBED3B826559DEC0094AEF9 /* ClubsView.swift */,
 				6C6B38402655AA6D00E812A5 /* ClubRow.swift */,
 				6C6B38472655B0F400E812A5 /* ClubDetailView.swift */,
-				6C7297372656E29D00AA6D39 /* response.json */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -196,6 +261,24 @@
 				6CBED3A626555EAF0094AEF9 /* HomeTabView.swift */,
 			);
 			path = Setup;
+			sourceTree = "<group>";
+		};
+		6CDE07BF26A1396600CE22A3 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				6CDE07BD26A1392300CE22A3 /* SchoolModel.swift */,
+				6CDE07C026A139AE00CE22A3 /* ProfileModel.swift */,
+				6CDE07C226A13A4700CE22A3 /* MajorModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		6CDE07C426A13C0C00CE22A3 /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+				6CDE07C526A13C1D00CE22A3 /* SettingsAPI.swift */,
+			);
+			path = Networking;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -217,6 +300,7 @@
 			packageProductDependencies = (
 				6C6B38432655AADE00E812A5 /* Kingfisher */,
 				6CB40EFB26561257006EBB0D /* PartialSheet */,
+				6CDE07C826A1419B00CE22A3 /* Alamofire */,
 			);
 			productName = "penn-clubs-ios";
 			productReference = 6C4B1D6D2655571100EBBF4B /* penn-clubs-ios.app */;
@@ -248,6 +332,7 @@
 			packageReferences = (
 				6C6B38422655AADE00E812A5 /* XCRemoteSwiftPackageReference "Kingfisher" */,
 				6CB40EFA26561257006EBB0D /* XCRemoteSwiftPackageReference "PartialSheet" */,
+				6CDE07C726A1419B00CE22A3 /* XCRemoteSwiftPackageReference "Alamofire" */,
 			);
 			productRefGroup = 6C4B1D6E2655571100EBBF4B /* Products */;
 			projectDirPath = "";
@@ -263,7 +348,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6C7297382656E29D00AA6D39 /* response.json in Resources */,
 				6C2B125F2656E3BB00A08BA1 /* response-copy.json in Resources */,
 				6C4B1D782655571200EBBF4B /* Preview Assets.xcassets in Resources */,
 				6C4B1D752655571200EBBF4B /* Assets.xcassets in Resources */,
@@ -277,21 +361,33 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6C3BE918269FFE4400FBB81A /* SecureStore.swift in Sources */,
+				6C7D1A8C265D8E6C005B7744 /* AlertManager.swift in Sources */,
+				6CDE07BC26A108E600CE22A3 /* SwiftUIView.swift in Sources */,
+				6C3BE91F26A0ECC900FBB81A /* WKPennLoginController.swift in Sources */,
 				6CD49C6E2655F89200144B55 /* SearchBar.swift in Sources */,
 				6C7297362656B1B400AA6D39 /* Modal.swift in Sources */,
 				6CB40EF926560D81006EBB0D /* EventsView.swift in Sources */,
 				6CBED3B126557EE30094AEF9 /* ClubModel.swift in Sources */,
 				6CBED3B926559DEC0094AEF9 /* ClubsView.swift in Sources */,
 				6C6B38482655B0F400E812A5 /* ClubDetailView.swift in Sources */,
+				6C3BE91B26A0EC8F00FBB81A /* WKPennLogin.swift in Sources */,
 				6CD49C6C2655B88600144B55 /* ClubsMapView.swift in Sources */,
 				6C6B38412655AA6D00E812A5 /* ClubRow.swift in Sources */,
 				6CB40EF526560D05006EBB0D /* MoreView.swift in Sources */,
 				6C4B1D732655571100EBBF4B /* ContentView.swift in Sources */,
+				6CDE07C126A139AE00CE22A3 /* ProfileModel.swift in Sources */,
 				6CBED3B62655830C0094AEF9 /* Networking.swift in Sources */,
 				6CBED3A726555EAF0094AEF9 /* HomeTabView.swift in Sources */,
 				6C6B384B2655B3B800E812A5 /* FadingScrollView.swift in Sources */,
+				6CDE07C626A13C1D00CE22A3 /* SettingsAPI.swift in Sources */,
 				6C4B1D712655571100EBBF4B /* penn_clubs_iosApp.swift in Sources */,
+				6CDE07BE26A1392300CE22A3 /* SchoolModel.swift in Sources */,
+				6C3BE92126A0EE0200FBB81A /* WKPennLoginSwiftUI.swift in Sources */,
 				6CBED3AB26557E050094AEF9 /* ControllerModel.swift in Sources */,
+				6C3BE91D26A0ECB100FBB81A /* WKNetworkManager.swift in Sources */,
+				6CDE07C326A13A4700CE22A3 /* MajorModel.swift in Sources */,
+				6CDE07CB26A1C9E700CE22A3 /* InfiniteList.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -424,12 +520,12 @@
 				DEVELOPMENT_TEAM = TNG4H85GH4;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = "penn-clubs-ios/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.pennlabs.penn-clubs-ios";
+				PRODUCT_BUNDLE_IDENTIFIER = org.jc;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -446,12 +542,12 @@
 				DEVELOPMENT_TEAM = TNG4H85GH4;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = "penn-clubs-ios/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.pennlabs.penn-clubs-ios";
+				PRODUCT_BUNDLE_IDENTIFIER = org.jc;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -498,6 +594,14 @@
 				minimumVersion = 2.1.11;
 			};
 		};
+		6CDE07C726A1419B00CE22A3 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.4.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -510,6 +614,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 6CB40EFA26561257006EBB0D /* XCRemoteSwiftPackageReference "PartialSheet" */;
 			productName = PartialSheet;
+		};
+		6CDE07C826A1419B00CE22A3 /* Alamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6CDE07C726A1419B00CE22A3 /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = Alamofire;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

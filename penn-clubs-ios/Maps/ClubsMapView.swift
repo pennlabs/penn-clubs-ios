@@ -12,30 +12,31 @@ struct ClubsMapView: View {
     @State var region = MKCoordinateRegion(center: .init(latitude: 39.951830, longitude: -75.194855), latitudinalMeters: 600, longitudinalMeters: 600)
     
 //    @GestureState var dragState: DragState = .inactive
-    let clubs: [ClubModel]
-    
-    let cellBackground: UIColor?
-    let tableBackground: UIColor?
-    
-    init() {
-        clubs = Bundle.main.decode("response-copy.json", dateFormat: "yyyy-MM-dd")
-        
-        cellBackground =  UITableViewCell.appearance().backgroundColor
-        tableBackground = UITableView.appearance().backgroundColor
-    }
+//    let clubs: [ClubModel]
+//
+//    init() {
+//        clubs = Bundle.main.decode("response-copy.json", dateFormat: "yyyy-MM-dd")
+//    }
     
     @State var searchString = ""
     
     var body: some View {
         GeometryReader { reader in
             ZStack(alignment: .bottom) {
-                Map(coordinateRegion: $region)
-                    .ignoresSafeArea()
+//                Map(coordinateRegion: $region)
+//                    .ignoresSafeArea()
                 
-                modal(reader: reader)
-                    .frame(height: reader.size.height * 0.5)
+//                modal(reader: reader)
+//                    .frame(height: reader.size.height * 0.5)
+                Text("something")
             }
-        }
+        }.onAppear(perform: {
+//            UITableViewCell.appearance().backgroundColor = .clear
+//            UITableView.appearance().backgroundColor = .clear
+        }).onDisappear(perform: {
+//            UITableViewCell.appearance().backgroundColor = .systemBackground
+//            UITableView.appearance().backgroundColor = .systemBackground
+        })
     }
     
     func modal(reader: GeometryProxy) -> some View {
@@ -53,15 +54,14 @@ struct ClubsMapView: View {
                 
                 Spacer()
                 
-                List {
-                    ForEach(clubs) { club in
-                        Text(club.name)
-                    }
-                    .listRowBackground(Color.clear)
-                }.disabled(true)
+//                List {
+//                    ForEach(clubs) { club in
+//                        Text(club.name)
+//                    }
+//                    .listRowBackground(Color.clear)
+//                }.disabled(true)
             }
-        }//.animation(.default)
-        
+        }
     }
 }
 
@@ -79,8 +79,6 @@ struct ClubsMapView_Previews: PreviewProvider {
             }
         }
         .preferredColorScheme(.light)
-        
-//            .preferredColorScheme(.dark)
     }
 }
 

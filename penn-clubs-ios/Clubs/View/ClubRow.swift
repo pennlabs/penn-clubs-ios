@@ -30,8 +30,7 @@ struct ClubRow: View {
                 Text(club.name)
                     .font(.system(size: 17, weight: .medium))
                     .minimumScaleFactor(0.2)
-                    .lineLimit(club.name.count < 20 ? 1 : club.name.count < 20 ? 2 : 3)
-//                    .background(Color.purple)
+                    .lineLimit(club.name.count < 20 ? 1 : club.name.count < 40 ? 2 : 3)
                                 
                 FadingScrollView(fadeDistance: 10, showsIndicators: false) {
                     HStack(spacing: 6) {
@@ -55,9 +54,3 @@ struct ClubRow: View {
         }.frame(height: 100)
     }
 }
-
-//struct ClubRow_Previews: PreviewProvider {
-//    static var previews: some View {
-//        ClubRow()
-//    }
-//}

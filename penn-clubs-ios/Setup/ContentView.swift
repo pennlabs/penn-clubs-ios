@@ -29,7 +29,7 @@ struct ContentView: View {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     if (selectedTab ==  3) {
                         Button("Login") {
-                            print("Help tapped!")
+                            
                         }
                     }
                 }

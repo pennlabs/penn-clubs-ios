@@ -9,12 +9,12 @@ import SwiftUI
 
 struct MoreView: View {
     
-    @State var graduationYear = 2020
-    @State var selection = ""
+//    @State var profile: ProfileModel
     
     init() {
+//        profile = ProfileNetworkManager.get
+        
         // fetch info from user and populate information
-
     }
     
     var body: some View {
@@ -37,23 +37,25 @@ struct MoreView: View {
                 }
             }
             
+//
+//            Section(header: Text("Eduction")) {
+//                Stepper(value: $graduationYear, in: 2020...2030, label: {
+//                    HStack {
+//
+//                        Text("Graduation Year: " + String(format: "%d", graduationYear))
+//                    }
+//                })
+////
+//            }
             
-            Section(header: Text("Eduction")) {
-                Stepper(value: $graduationYear, in: 2020...2030, label: {
-                    HStack {
-                        
-                        Text("Graduation Year: " + String(format: "%d", graduationYear))
-                    }
-                })
-//                Picker(selection: $selection, label:
-//                    Text("Picker Name")
-//                    , content: {
-//                        Text("Value 1").tag(0)
-//                        Text("Value 2").tag(1)
-//                        Text("Value 3").tag(2)
-//                        Text("Value 4").tag(3)
-//                    })
-            }
+//            Section(header: Text("Education")) {
+//                Picker("My Picker", selection: $selection) {
+//                   Text("Banana 🍌🍌")
+//                   Text("Apple 🍎🍎")
+//                   Text("Peach 🍑🍑")
+//               }
+//                .pickerStyle(InlinePickerStyle())
+//            }
         }
     }
 }

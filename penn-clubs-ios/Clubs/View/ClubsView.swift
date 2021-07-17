@@ -7,26 +7,44 @@
 
 import SwiftUI
 
-struct ClubsView: View {
-    
-    let clubs: [ClubModel]
-    
-    init() {
-        clubs = Bundle.main.decode("response.json", dateFormat: "yyyy-MM-dd")
+extension Binding {
+    func onChange(_ handler: @escaping (Value) -> Void) -> Binding<Value> {
+        Binding(
+            get: { self.wrappedValue },
+            set: { newValue in
+                self.wrappedValue = newValue
+                handler(newValue)
+            }
+        )
     }
-    
+}
+
+struct ClubsView: View {
+    @StateObject var clubResponseViewModel = ClubResponseViewModel()
     @State var searchText: String = ""
     
     var body: some View {
-        VStack {
-            SearchBar(text: $searchText)
-            Spacer()
-            List(clubs.filter({searchText.isEmpty ? true : $0.name.contains(searchText)})) { club in
-                NavigationLink(destination: ClubDetailView(for: club)) {
-                    ClubRow(for: club)
-                }
+        ZStack {
+            VStack(alignment: .leading) {
+                SearchBar(text: $searchText.onChange(searchQueryChanged))
+                InfiniteList(dataSource: clubResponseViewModel, row: ClubRow.init, detailView: ClubDetailView.init)
+                Spacer()
+            }.onAppear(perform: clubResponseViewModel.prepare)
+            
+            if clubResponseViewModel.isLoadingPage {
+                ProgressView()
+            }
+            
+            if !clubResponseViewModel.isLoadingPage && clubResponseViewModel.items.isEmpty {
+                Text("No clubs found")
             }
         }
+        
+    }
+    
+    private func searchQueryChanged(to value: String) {
+        clubResponseViewModel.searchQuery = value
+        clubResponseViewModel.reset()
     }
 }
 
