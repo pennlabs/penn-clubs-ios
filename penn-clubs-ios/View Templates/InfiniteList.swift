@@ -44,9 +44,8 @@ class InfiniteListDataSource<Data>: ObservableObject where Data: InfiniteListDat
     private var currentPage = 1
     private var canLoadMorePages = true
     private var searchQuery = ""
-
-    func prepare() {
-        print("init")
+    
+    init() {
         loadMoreContent()
     }
     
@@ -77,8 +76,6 @@ class InfiniteListDataSource<Data>: ObservableObject where Data: InfiniteListDat
     }
 
     private func loadMoreContent() {
-        print("something")
-        
         guard !isLoadingPage && canLoadMorePages else {
             return
         }
@@ -108,7 +105,6 @@ class InfiniteListDataSource<Data>: ObservableObject where Data: InfiniteListDat
                 self.currentPage += 1
             })
             .map({ response in
-//                print(response)
                 return self.items + response.items
             })
             .catch({ _ in Just(self.items) })

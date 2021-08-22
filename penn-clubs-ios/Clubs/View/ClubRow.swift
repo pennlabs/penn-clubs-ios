@@ -10,9 +10,9 @@ import Kingfisher
 
 struct ClubRow: View {
     
-    var club : ClubModel
+    var club : Club
     
-    init (for club: ClubModel) {
+    init (for club: Club) {
         self.club = club
     }
     
@@ -26,11 +26,11 @@ struct ClubRow: View {
                     .clipShape(RoundedRectangle(cornerRadius: 7))
             }
                 
-            VStack(alignment: .leading, spacing: 0) {
+            VStack(alignment: .leading, spacing: 5) {
                 Text(club.name)
-                    .font(.system(size: 17, weight: .medium))
-                    .minimumScaleFactor(0.2)
-                    .lineLimit(club.name.count < 20 ? 1 : club.name.count < 40 ? 2 : 3)
+                    .font(.system(.body))
+                    .fontWeight(.medium)
+                    .fixedSize(horizontal: false, vertical: true)
                                 
                 FadingScrollView(fadeDistance: 10, showsIndicators: false) {
                     HStack(spacing: 6) {
@@ -43,14 +43,15 @@ struct ClubRow: View {
                                 .clipShape(RoundedRectangle(cornerRadius: 6))
                         }
                     }
-                }
+                }.frame(height: 20)
                 
                 Text(club.subtitle)
                     .font(.system(size: 10, weight: .light))
-                    .frame(minHeight: 40, alignment: .topLeading)
+                    .truncationMode(.tail)
+                    .frame(maxHeight: 40)
                 
                 Spacer()
-            }
-        }.frame(height: 100)
+            }.frame(minHeight: 100)
+        }
     }
 }

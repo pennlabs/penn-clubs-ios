@@ -8,9 +8,12 @@
 import SwiftUI
 
 class AlertManager: ObservableObject {
-    @Published var showAlert: AlertType? = nil
+    static var shared: AlertManager  = AlertManager()
     
-    func toggleAlertType(for type: AlertType?) {
+    @Published var showAlert: NetworkingError? = nil
+    
+    func toggleAlertType(for type: NetworkingError) {
+        print("showing alert")
         showAlert = type
     }
 }
@@ -21,37 +24,40 @@ struct AlertView: View {
     var body: some View {
         VStack {
             if let alert = alertManager.showAlert {
-                Text(alert.localizedDescription)
-                    .foregroundColor(Color.white)
-                    .padding(12)
-                    .background(Color.red)
-                    .cornerRadius(8)
-                    .padding()
-                    .animation(.easeInOut)
-                    .transition(AnyTransition.move(edge: .top).combined(with: .opacity))
-                    .onTapGesture {
+                HStack {
+                    VStack(alignment: .leading, spacing: 10) {
+                        Text(alert.title)
+                            .foregroundColor(Color.white)
+                            .font(.system(.headline))
+
+                        Text(alert.description)
+                            .foregroundColor(Color.white)
+                            .font(.system(.body))
+                    }
+                    
+                    Spacer()
+                }
+                .padding()
+                .background(Color.red)
+                .cornerRadius(8)
+                .padding()
+                .animation(.easeInOut)
+                .transition(AnyTransition.move(edge: .top).combined(with: .opacity))
+                .onTapGesture {
+                    withAnimation {
+                        alertManager.showAlert = nil
+                    }
+                }.onAppear(perform: {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
                         withAnimation {
-                            alertManager.toggleAlertType(for: nil)
+                            alertManager.showAlert = nil
                         }
-                    }.onAppear(perform: {
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-                            withAnimation {
-                                alertManager.toggleAlertType(for: nil)
-                            }
-                        }
-                    })
+                    }
+                })
+                
             }
             
             Spacer()
         }
     }
-}
-
-enum AlertType: String, LocalizedError {
-    case noInternet
-    case serverError = "Server Error.\nPlease refresh and try again."
-    case jsonError = "JSON error"
-    case authenticationError = "Unable to authenticate"
-    case other
-    var localizedDescription: String { return NSLocalizedString(self.rawValue, comment: "") }
 }

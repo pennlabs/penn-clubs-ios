@@ -8,17 +8,20 @@
 import Foundation
 import SwiftUI
 
-enum Feature: String {
-    case map = "Maps"
-    case events = "Events"
-    case clubs = "Clubs"
-    case more = "More"
+enum Feature: Int {
+    case map = 0
+    case events = 1
+    case clubs = 2
+    case more = 3
 }
 
-class ControllerModel: NSObject {
-
-    static var shared = ControllerModel()
-
+class ControllerModel: ObservableObject {
+    @Published var feature: Feature = .map
+    
+    init() {
+        prepare()
+    }
+    
     var viewDictionary: [Feature: AnyView]!
 
     func prepare() {
@@ -28,7 +31,6 @@ class ControllerModel: NSObject {
         viewDictionary[.events] = AnyView(EventsView())
         viewDictionary[.clubs] = AnyView(ClubsView())
         viewDictionary[.more] = AnyView(MoreView())
-        
     }
     
     var viewControllers: [AnyView] {
@@ -44,11 +46,15 @@ class ControllerModel: NSObject {
     }
     
     var displayNames: [String] {
-        return orderedFeatures.map { $0.rawValue }
+        get {
+            return ["Map", "Events", "Clubs", "More"]
+        }
     }
     
     var displayImages: [Image] {
-        return [Image(systemName: "map"), Image(systemName: "calendar"), Image(systemName: "doc"), Image(systemName: "ellipsis.circle")]
+        get {
+            return [Image(systemName: "map"), Image(systemName: "calendar"), Image(systemName: "doc"), Image(systemName: "ellipsis.circle")]
+        }
     }
     
     

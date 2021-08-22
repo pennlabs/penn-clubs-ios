@@ -10,28 +10,37 @@ import SwiftUI
 @main
 struct penn_clubs_iosApp: App {
         
-    @ObservedObject var modalManager = ModalManager()
-    @ObservedObject var alertManager = AlertManager()
-//    @ObservedObject var loginManager = LoginManager.instance
+    @StateObject var alertManager = AlertManager.shared
+    @StateObject var loginManager = LoginManager()
+    @StateObject var controllerModel = ControllerModel()
+    @StateObject var clubsMapVM = ClubsMapViewModel()
     
     init() {
-        ControllerModel.shared.prepare()
-//        ClubResponseViewModel.instance.prepare()
-        WKPennLogin.setupCredentials(clientID: "CJmaheeaQ5bJhRL0xxlxK3b8VEbLb3dMfUAvI2TN", redirectURI: "https://pennlabs.org/pennmobile/ios/callback/")
+        LoginManager.setupCredentials(clientID: "CJmaheeaQ5bJhRL0xxlxK3b8VEbLb3dMfUAvI2TN", redirectURI: "https://pennlabs.org/pennmobile/ios/callback/")
     }
     
     var body: some Scene {
         WindowGroup {
             ZStack {
                 ContentView()
-                ModalAnchorView()
                 AlertView()
+                
+                if !UserDefaults.standard.hasLaunched() {
+                    welcomeScreen
+                }
             }
-            .sheet(isPresented: LoginManager.$instance.isDisplayed) {
-                Text("test")
+            .sheet(isPresented: $loginManager.isDisplayed) {
+                LoginView()
             }
-            .environmentObject(modalManager)
             .environmentObject(alertManager)
+            .environmentObject(controllerModel)
+            .environmentObject(loginManager)
+            .environmentObject(clubsMapVM)
         }
+    }
+    
+    // TODO: Finish splash screen
+    var welcomeScreen: some View {
+        Text("")
     }
 }

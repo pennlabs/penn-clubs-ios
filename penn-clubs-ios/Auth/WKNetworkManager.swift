@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import Alamofire
 
 public struct WKAccessToken: Codable {
     let value: String
@@ -25,13 +26,19 @@ public struct WKPennUser: Codable {
 public extension URLRequest {
     // Sets the appropriate header field given an access token
     // NOTE: Should ONLY be used for requests to Labs servers. Otherwise, access token will be compromised.
-    init(url: URL, accessToken: WKAccessToken) {
+    init(url: URL, accessToken: WKAccessToken, method: HTTPMethod = .get, body: Data? = nil) {
         self.init(url: url)
         // Authorization headers are restricted on iOS and not supposed to be set. They can be removed at any time.
         // Thus, we et an X-Authorization header to carry the bearer token in addition to the regular Authorization header.
         // For more info: see https://developer.apple.com/documentation/foundation/nsurlrequest#1776617
         setValue("Bearer \(accessToken.value)", forHTTPHeaderField: "Authorization")
         setValue("Bearer \(accessToken.value)", forHTTPHeaderField: "X-Authorization")
+        
+        setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
+        setValue("application/json", forHTTPHeaderField: "Accept")
+
+        self.httpBody = body
+        self.method = method
     }
 }
 
@@ -40,6 +47,10 @@ public class WKPennNetworkManager: NSObject {
     private override init() {}
     
     fileprivate var currentAccessToken: WKAccessToken?
+    
+    public func removeToken() {
+        currentAccessToken = nil
+    }
 }
 
 // MARK: - Initiate Authentication
@@ -55,8 +66,8 @@ extension WKPennNetworkManager {
         let params = [
             "code": code,
             "grant_type": "authorization_code",
-            "client_id": WKPennLogin.clientID!,
-            "redirect_uri": WKPennLogin.redirectURI!,
+            "client_id": LoginManager.clientID!,
+            "redirect_uri": LoginManager.redirectURI!,
             "code_verifier": codeVerifier,
         ]
         
@@ -112,7 +123,7 @@ extension WKPennNetworkManager {
         let params = [
             "refresh_token": refreshToken,
             "grant_type": "refresh_token",
-            "client_id": WKPennLogin.clientID!,
+            "client_id": LoginManager.clientID!,
         ]
         
         request.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")

@@ -1,15 +1,18 @@
 import SwiftUI
  
-struct SearchBar: View {
+// TODO: Must Refactor to remove strange background view initializer
+struct SearchBar<BackgroundView>: View where BackgroundView: View {
     @Binding var text: String
     @State private var isEditing = false
+    var cancelButtonExists: Bool
+    let background: () -> BackgroundView
  
     var body: some View {
         HStack(spacing: 0) {
             TextField("Search ...", text: $text)
                 .padding(7)
                 .padding(.leading, 27)
-                .background(Color(.systemGray6))
+                .background(background())
                 .cornerRadius(8)
                 .overlay(searchOverlay)
                 .onTapGesture {
@@ -17,9 +20,9 @@ struct SearchBar: View {
                 }
                 .animation(.default)
 
-            Spacer()
-
-            if isEditing {
+            if isEditing && cancelButtonExists {
+                Spacer()
+                
                 Button(action: {
                     self.isEditing = false
                     self.text = ""

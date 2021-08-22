@@ -11,6 +11,7 @@ import WebKit
 
 struct WKPennLoginSwiftUI: UIViewRepresentable {
     @Environment(\.presentationMode) var presentationMode
+    @EnvironmentObject var loginManager: LoginManager
     @State var geometry: GeometryProxy
     
     func makeUIView(context: Context) -> WKWebView {
@@ -27,7 +28,7 @@ struct WKPennLoginSwiftUI: UIViewRepresentable {
 
 extension WKPennLoginSwiftUI: WKPennLoginDelegate {
     func handleLogin(user: WKPennUser) {
-        print(user)
+        loginManager.isLoggedIn = true 
         presentationMode.wrappedValue.dismiss()
     }
      
@@ -36,12 +37,3 @@ extension WKPennLoginSwiftUI: WKPennLoginDelegate {
     }
 }
 
-class LoginManager: ObservableObject {
-    @ObservedObject static var instance = LoginManager()
-    
-    @Published var isDisplayed = false
-    
-    func toggle() {
-        isDisplayed = true
-    }
-}

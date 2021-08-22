@@ -9,31 +9,37 @@ import SwiftUI
 
 struct ContentView: View {
     
-    @State var navBarTitle = ControllerModel.shared.displayNames[0]
-    @State var selectedTab = 0
+    @EnvironmentObject var loginManager: LoginManager
+    @EnvironmentObject var controllerModel: ControllerModel
     
     var body: some View {
         NavigationView {
-            TabView(selection: $selectedTab) {
-                ForEach(0..<ControllerModel.shared.viewControllers.count) { i in
-                    HomeTabView(ControllerModel.shared.viewControllers[i], navTitle: ControllerModel.shared.displayNames[i], labelImage: ControllerModel.shared.displayImages[i])
-                        .tag(i)
+            TabView(selection: $controllerModel.feature) {
+                ForEach(0..<controllerModel.viewControllers.count) { i in
+                    HomeTabView(controllerModel.viewControllers[i], navTitle: controllerModel.displayNames[i], labelImage: controllerModel.displayImages[i])
+                        .tag(controllerModel.orderedFeatures[i])
                 }
             }
-            .navigationBarTitle(navBarTitle)
-            .onChange(of: selectedTab) { i in
-                navBarTitle = ControllerModel.shared.displayNames[i]
-            }
+            .navigationBarTitle(controllerModel.displayNames[controllerModel.feature.rawValue], displayMode: .large)
             .toolbar(content: {
-                // TODO: Refactor
                 ToolbarItem(placement: .navigationBarTrailing) {
-                    if (selectedTab ==  3) {
-                        Button("Login") {
-                            
-                        }
+                    if (controllerModel.feature == .more) {
+                        loginButton
                     }
                 }
             })
+        }
+    }
+    
+    var loginButton: some View {
+        if loginManager.isLoggedIn {
+            return Button("Logout") {
+                loginManager.logout()
+            }
+        } else {
+            return Button("Login") {
+                loginManager.toggle()
+            }
         }
     }
 }

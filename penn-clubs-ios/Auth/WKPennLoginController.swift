@@ -44,12 +44,12 @@ public class WKPennLoginController: WKWebView, WKUIDelegate {
     }
     
     private var clientID: String {
-        WKPennLogin.clientID
+        LoginManager.clientID
     }
     
     private var escapedRedirectURI: String {
         let characterSet = CharacterSet(charactersIn: "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789")
-        return WKPennLogin.redirectURI.addingPercentEncoding(withAllowedCharacters: characterSet)!
+        return LoginManager.redirectURI.addingPercentEncoding(withAllowedCharacters: characterSet)!
     }
     
     /// A random 64-character string
@@ -89,7 +89,7 @@ public class WKPennLoginController: WKWebView, WKUIDelegate {
         navigationDelegate = self
         uiDelegate = self
         
-        if WKPennLogin.clientID == nil || WKPennLogin.redirectURI == nil {
+        if LoginManager.clientID == nil || LoginManager.redirectURI == nil {
             delegate.handleError(error: .missingCredentials)
         }
         
@@ -119,7 +119,7 @@ extension WKPennLoginController: WKNavigationDelegate {
             return
         }
         
-        if url.absoluteString.contains(WKPennLogin.redirectURI) {
+        if url.absoluteString.contains(LoginManager.redirectURI) {
             // Successfully logged in and navigated to redirect URI
             decisionHandler(.cancel)
             guard let code = url.absoluteString.split(separator: "=").last else {
@@ -130,11 +130,14 @@ extension WKPennLoginController: WKNavigationDelegate {
             // Authenticate code
             WKPennNetworkManager.instance.authenticate(code: String(code), codeVerifier: codeVerifier) { (token) in
                 guard let token = token else {
+                   
                     DispatchQueue.main.async {
                         self.delegate.handleError(error: .platformAuthError)
                     }
                     return
                 }
+                 
+                print(token)
                 
                 // Get user info from Penn Labs Platform
                 WKPennNetworkManager.instance.getUserInfo(accessToken: token) { (user) in
