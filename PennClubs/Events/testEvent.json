@@ -1,0 +1,25 @@
+{
+     "description": "<p style=\"text-align: left;\"><span style=\"color: rgb(74,74,74); background-color: rgb(255,255,255); font-size: 16px; font-family: Inter, sans-serif;\">Interested students and returning members are welcome to visit GPA's table on <strong>College Green</strong> for this year's NSO Late-Night Activities Fair! Some of our officers will be present to answer all of your questions about GPA and its branches, and it will be a great way to learn how to get involved in our club and about our exciting upcoming events, such as our discussion with former US Attorney General Loretta Lynch and the distribution of the Fall 2021 edition of our political magazine!</span></p>\n<p style=\"text-align: left;\"><span style=\"color: rgb(74,74,74); background-color: rgb(255,255,255); font-size: 16px; font-family: Inter, sans-serif;\">There will also be <strong>free donuts</strong>, stickers, and informational pamphlets, so feel free to stop by!</span> </p>",
+     "end_time": "2021-08-29T01:00:00-04:00",
+     "id": 2635,
+     "image_url": "https://s3.amazonaws.com/penn.clubs/events/2635.jpg",
+     "is_ics_event": false,
+     "large_image_url": "https://s3.amazonaws.com/penn.clubs/events/2635.jpg",
+     "location": null,
+     "name": "NSO Late-Night Activities Fair",
+     "start_time": "2021-08-28T23:00:00-04:00",
+     "type": 1,
+     "url": null,
+     "club": "government-politics-association",
+     "club_name": "University of Pennsylvania Government and Politics Association",
+     "badges": [
+         {
+             "id": 4,
+             "purpose": "org",
+             "label": "SAC",
+             "color": "d3d3d3",
+             "description": "Student Activities Council constituent"
+         }
+     ],
+     "pinned": false
+ }

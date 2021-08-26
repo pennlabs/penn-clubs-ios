@@ -1,0 +1,43 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "Alamofire",
+        "repositoryURL": "https://github.com/Alamofire/Alamofire.git",
+        "state": {
+          "branch": null,
+          "revision": "f96b619bcb2383b43d898402283924b80e2c4bae",
+          "version": "5.4.3"
+        }
+      },
+      {
+        "package": "Kingfisher",
+        "repositoryURL": "https://github.com/onevcat/Kingfisher.git",
+        "state": {
+          "branch": null,
+          "revision": "44450a8f564d7c0165f736ba2250649ff8d3e556",
+          "version": "6.3.0"
+        }
+      },
+      {
+        "package": "PartialSheet",
+        "repositoryURL": "https://github.com/AndreaMiotto/PartialSheet.git",
+        "state": {
+          "branch": null,
+          "revision": "936465232b6399e402e79d5b031622af9a5e9960",
+          "version": "2.1.11"
+        }
+      },
+      {
+        "package": "SwiftSoup",
+        "repositoryURL": "https://github.com/scinfu/SwiftSoup.git",
+        "state": {
+          "branch": null,
+          "revision": "774dc9c7213085db8aa59595e27c1cd22e428904",
+          "version": "2.3.2"
+        }
+      }
+    ]
+  },
+  "version": 1
+}
