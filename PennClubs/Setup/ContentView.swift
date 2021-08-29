@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import FirebaseAnalytics
 
 struct ContentView: View {
     
@@ -17,9 +18,14 @@ struct ContentView: View {
     var body: some View {
         NavigationView {
             TabView(selection: $controllerModel.feature) {
-                ForEach(0..<controllerModel.orderedFeatures.count) { i in
-                    HomeTabView(controllerModel.viewControllers[i], navTitle: controllerModel.tabTitle[i], labelImage: controllerModel.displayImages[i])
-                        .tag(controllerModel.orderedFeatures[i])
+                ForEach(controllerModel.orderedFeatures, id: \.self) { feature in
+                    controllerModel.viewDictionary[feature]
+                        .tabItem {
+                            Label(
+                                title: { Text(controllerModel.tabTitleDictionary[feature] ?? "ERROR") },
+                                icon: { controllerModel.tabImageDictionary[feature] }
+                            )
+                        }
                 }
             }
             .alert(isPresented: $logoutAlert) {
@@ -32,7 +38,7 @@ struct ContentView: View {
                     }
                 }))
             }
-            .navigationBarTitle(controllerModel.navigationTitle[controllerModel.feature.rawValue], displayMode: .large)
+            .navigationBarTitle(controllerModel.navigationTitleDictionary[controllerModel.feature] ?? "ERROR", displayMode: .large)
             .toolbar(content: {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     if (controllerModel.feature == .more) {
@@ -40,7 +46,13 @@ struct ContentView: View {
                     }
                 }
             })
+            .onChange(of: controllerModel.feature) { feature in
+                FirebaseAnalytics.Analytics.logEvent("tab_switched", parameters: [
+                    AnalyticsParameterScreenName: String.init(describing: feature)
+                ])
+            }
         }
+        .navigationViewStyle(StackNavigationViewStyle())
     }
     
     var loginButton: some View {

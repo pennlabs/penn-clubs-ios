@@ -23,7 +23,7 @@ struct ClubsMapView: View {
         )
         
         return ZStack(alignment: .bottom) {
-            MapView(region: $clubsMapVM.region, clubFairLocations: $clubsMapVM.clubFairLocations, clubSelected: $clubSelected)
+            MapView(clubSelected: $clubSelected)
                 .edgesIgnoringSafeArea(.all)
                 
             actionButton
@@ -32,8 +32,12 @@ struct ClubsMapView: View {
                 clearSelectionButton
             }
         }
+        .onAppear {
+            
+            clubsMapVM.fetchClubFairLocations()
+        }
         .sheet(isPresented: showClub) {
-            ClubDetailView(clubName: clubSelected!.title ?? "mising", clubCode: clubSelected!.id, clubImageURL: clubSelected!.imageUrl)
+            ClubDetailView(clubName: clubSelected!.title ?? "mising", clubCode: clubSelected!.id, clubImageURL: clubSelected!.imageUrl, subtitle: clubSelected!.callout)
                 .padding(.top)
         }
     }

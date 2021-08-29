@@ -9,45 +9,41 @@ import SwiftUI
 import SwiftSoup
 import Kingfisher
 
-//                            clubMapVM.selectClub(of: clubCode)
-//                            controllerModel.feature = .map
-//                            mode.wrappedValue.dismiss()
 
 struct ClubDetailView: View {
     let clubName: String
     let clubCode: String
     let clubImageURL: String?
+    let clubSubtitle: String
     let isNavigationView: Bool
     
-    @State var isLoading = true
-    @State var isBookmarked = false
-    @State var isSubscribed = false
-    
+    @StateObject var clubDetailVM = ClubDetailViewModel()
+
     @EnvironmentObject var controllerModel: ControllerModel
-    @EnvironmentObject var clubMapVM: ClubsMapViewModel
     @EnvironmentObject var alertManager: AlertManager
     @EnvironmentObject var loginManager: LoginManager
-    
+
     @Environment(\.presentationMode) var mode
-    
-    @State var extendedClub: ExtendedClub? = nil
-    @State var faqs: [QuestionAnswer]? = nil
-    
+
     init(for club: Club) {
         clubName = club.name
         clubCode = club.code
         clubImageURL = club.imageURL
+        clubSubtitle = club.subtitle
         isNavigationView = true
     }
-    
-    init(clubName: String, clubCode: String, clubImageURL: String?) {
+
+    init(clubName: String, clubCode: String, clubImageURL: String?, subtitle: String) {
         self.clubName = clubName
         self.clubCode = clubCode
         self.clubImageURL = clubImageURL
+        self.clubSubtitle = subtitle
         isNavigationView = false
     }
-    
-    private let sectionTitle = ["Description", "Overview", "FAQ", "Members"]
+
+    private let sectionTitle = ["Description", "Overview", "FAQ", "Events"]
+
+    @State private var mapLocationShown = false
     
     @State private var pickerIndex = 0
     
@@ -60,30 +56,29 @@ struct ClubDetailView: View {
                     }) {
                         Image(systemName: "chevron.left")
                     }
-                    
+
                     Spacer()
-                    
-                    if extendedClub != nil {
+
+                    if clubDetailVM.extendedClub != nil {
                         Button(action: {
                             if loginManager.isLoggedIn {
-                                print("TODO")
+                                clubDetailVM.toggleBookmark(clubCode: clubCode)
                             } else {
-                                isBookmarked.toggle()
+                                clubDetailVM.extendedClub!.isFavorite.toggle()
                                 UserDefaults.standard.toggleBookmarkedClubCodes(clubCode: clubCode)
                             }
                         }) {
-                            isBookmarked ? Image(systemName: "bookmark.fill") : Image(systemName: "bookmark")
+                            clubDetailVM.extendedClub!.isFavorite ? Image(systemName: "bookmark.fill") : Image(systemName: "bookmark")
                         }
-                        
+
                         Button(action: {
                             if loginManager.isLoggedIn {
-                                // do this only if success
-                                print("TODO")
+                                clubDetailVM.toggleSubscribe(clubCode: clubCode)
                             } else {
                                 loginManager.toggleAlert(handler: {})
                             }
                         }) {
-                            isSubscribed ? Image(systemName: "bell.fill") : Image(systemName: "bell")
+                            clubDetailVM.extendedClub!.isSubscribe ? Image(systemName: "bell.fill") : Image(systemName: "bell")
                         }
                     }
                 }
@@ -91,10 +86,11 @@ struct ClubDetailView: View {
                 .padding()
                 .frame(height: 40)
             }
-            
+
             HStack(alignment: .center, spacing: 10) {
                 if let imageURL = clubImageURL {
                     KFImage(URL(string: imageURL))
+                        .loadImmediately()
                         .resizable()
                         .aspectRatio(contentMode: .fit)
                         .frame(width: 90, height: 90)
@@ -103,16 +99,17 @@ struct ClubDetailView: View {
                             if (clubCode == "pennlabs" && isNavigationView) {
                                 alertManager.toggleAlertType(for: Success.easterEgg)
                             }
+                            controllerModel.feature = .home
                         })
                 }
-                
+
                 Text(clubName)
                     .font(.system(size: 25, weight: .bold))
                     .lineLimit(nil)
 
                 Spacer()
             }.padding()
-            
+
             Picker("Section", selection: $pickerIndex) {
                 ForEach(0 ..< sectionTitle.count) {
                     Text(sectionTitle[$0])
@@ -123,65 +120,44 @@ struct ClubDetailView: View {
             .padding(.vertical, 5)
 
             GeometryReader { reader in
-                if let extendedClub = extendedClub, let faqs = faqs {
-                    if pickerIndex == 0 {
-                        DescriptionView(descriptionString: extendedClub.description, frame: reader.frame(in: .global))
+                if (clubDetailVM.isLoading) {
+                    ProgressView()
+                        .position(x: reader.size.width / 2, y: reader.size.height / 2)
+                } else {
+                    //necessary for animation to be enabled
+                    Spacer()
+                }
+                
+                if pickerIndex == 0 {
+                    if let extendedClub = clubDetailVM.extendedClub, let clubFair = clubDetailVM.clubFair {
+                        DescriptionView(descriptionString: extendedClub.description, frame: reader.frame(in: .global), clubCode: clubCode, clubFair: clubFair, isNavigationView: isNavigationView, isOwner: extendedClub.isOwner, presentFairPin: $mapLocationShown, presentationMode: mode)
                             .transition(.opacity)
-                    } else if pickerIndex == 1 {
+                    }
+                } else if pickerIndex == 1 {
+                    if let extendedClub = clubDetailVM.extendedClub {
                         OverviewView(for: extendedClub)
-                    } else if pickerIndex == 2 {
+                    }
+                } else if pickerIndex == 2 {
+                    if let faqs = clubDetailVM.faqs {
                         FaqView(questionAnswers: faqs)
-                    } else {
-                        MembersView(for: extendedClub.members)
                     }
                 } else {
-                    if (isLoading) {
-                        ProgressView()
-                            .position(x: reader.size.width / 2, y: reader.size.height / 2)
-                    } else {
-                        //necessary for animation to be enabled
-                        Spacer()
+                    if let events = clubDetailVM.events {
+                        EventsView(events: events)
                     }
                 }
             }.edgesIgnoringSafeArea(.all)
         }
+        .sheet(isPresented: $mapLocationShown) {
+            MapPinLocationView(clubCode: clubCode)
+                .environmentObject(clubDetailVM)
+        }
         .onAppear {
-            fetchExtendedClubModel()
+            clubDetailVM.fetchData(loginManager.isLoggedIn, clubCode: clubCode, name: clubName, imageUrl: clubImageURL, subtitle: clubSubtitle)
         }
+        .environmentObject(clubDetailVM)
+        .navigationBarTitle("")
         .navigationBarHidden(true)
-    }
-    
-    func fetchExtendedClubModel() {
-        WKPennNetworkManager.instance.getAccessToken { token in
-            ClubsAPI.instance.fetchExtendedClub(token: token, for: clubCode) { result in
-                withAnimation {
-                    print(result)
-                    isLoading = false
-                    switch result {
-                    case .success(let extendedClub):
-                        self.isBookmarked = extendedClub.isFavorite
-                        self.isSubscribed = extendedClub.isSubscribe
-                        
-                        if (!loginManager.isLoggedIn && UserDefaults.standard.getBookmarkedClubCodes().contains(clubCode)) {
-                            self.isBookmarked = true
-                        }
-                        
-                        self.extendedClub = extendedClub
-                    case .failure(let error):
-                        AlertManager.shared.toggleAlertType(for: error)
-                    }
-                }
-            }
-            
-            ClubsAPI.instance.fetchClubFaq(for: clubCode) { result in
-                switch result {
-                case .success(let faqs):
-                    self.faqs = faqs
-                case .failure(let error):
-                    AlertManager.shared.toggleAlertType(for: error)
-                }
-            }
-        }
     }
 }
 

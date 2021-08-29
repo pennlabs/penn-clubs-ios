@@ -8,23 +8,45 @@
 import Foundation
 import SwiftUI
 
-enum Feature: Int {
-    case home = 0
-    case map = 1
-    case search = 2
-    case more = 3
+enum Feature: Hashable {
+    case home
+    case map
+    case search
+    case more
 }
 
 class ControllerModel: ObservableObject {
     @Published var feature: Feature = .home
     
     init() {
-        prepare()
+        prepareViewDictionary()
+        prepareTabTitleDictionary()
+        prepareTabImageDictionary()
+        prepareNavigationTitleDictionary()
+    }
+    
+    var orderedFeatures: [Feature] {
+        var date = DateComponents()
+        date.year = 2021
+        date.month = 9
+        date.day = 4
+        date.timeZone = TimeZone(abbreviation: "EST")
+        let userCalendar = Calendar.current
+        let endOfSACFair = userCalendar.date(from: date)
+        
+        if Date() < endOfSACFair ?? Date() {
+            return [.home, .map, .search, .more]
+        } else {
+            return [.home, .search, .more]
+        }
     }
     
     var viewDictionary: [Feature: AnyView]!
+    var tabTitleDictionary: [Feature: String]!
+    var tabImageDictionary: [Feature: Image]!
+    var navigationTitleDictionary: [Feature: String]!
 
-    func prepare() {
+    func prepareViewDictionary() {
         viewDictionary = [Feature: AnyView]()
         
         viewDictionary[.home] = AnyView(HomeView())
@@ -33,35 +55,30 @@ class ControllerModel: ObservableObject {
         viewDictionary[.more] = AnyView(MoreView())
     }
     
-    var viewControllers: [AnyView] {
-        return orderedFeatures.map { (title) -> AnyView in
-            return viewDictionary[title]!
-        }
+    func prepareTabTitleDictionary() {
+        tabTitleDictionary = [Feature: String]()
+        
+        tabTitleDictionary[.home] = "Home"
+        tabTitleDictionary[.map] = "Clubs Fair"
+        tabTitleDictionary[.search] = "Search"
+        tabTitleDictionary[.more] = "More"
     }
     
-    var orderedFeatures: [Feature] {
-        get {
-            return [.home, .map, .search, .more]
-        }
+    func prepareTabImageDictionary() {
+        tabImageDictionary = [Feature: Image]()
+        
+        tabImageDictionary[.home] = Image(systemName: "house")
+        tabImageDictionary[.map] = Image(systemName: "map")
+        tabImageDictionary[.search] = Image(systemName: "magnifyingglass")
+        tabImageDictionary[.more] = Image(systemName: "ellipsis.circle")
     }
     
-    var tabTitle: [String] {
-        get {
-            return ["Home", "Clubs Fair", "Search", "More"]
-        }
+    func prepareNavigationTitleDictionary() {
+        navigationTitleDictionary = [Feature: String]()
+        
+        navigationTitleDictionary[.home] = "Home"
+        navigationTitleDictionary[.map] = ""
+        navigationTitleDictionary[.search] = "Search"
+        navigationTitleDictionary[.more] = "More"
     }
-    
-    var navigationTitle: [String] {
-        get {
-            return ["Home", "", "Search", "More"]
-        }
-    }
-    
-    var displayImages: [Image] {
-        get {
-            return [Image(systemName: "house"), Image(systemName: "map"), Image(systemName: "magnifyingglass"), Image(systemName: "ellipsis.circle")]
-        }
-    }
-    
-    
 }

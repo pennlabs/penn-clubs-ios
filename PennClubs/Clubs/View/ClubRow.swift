@@ -38,7 +38,7 @@ struct ClubRow: View {
                             Text(tag.name)
                                 .padding(.vertical, 3)
                                 .padding(.horizontal, 4)
-                                .background(Color(UIColor.lightGray))
+                                .background(Color.grey5)
                                 .font(.system(size: 12, weight: .light))
                                 .clipShape(RoundedRectangle(cornerRadius: 6))
                         }

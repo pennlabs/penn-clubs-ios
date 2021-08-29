@@ -12,14 +12,13 @@ class ClubAnnotation: NSObject, MKAnnotation {
     let id: String
     let title: String?
     let imageUrl: String?
-//    let subtitle: String?
     let callout: String
     
-    init(clubLocationModel: ClubFairLocation) {
+    init(clubLocationModel: ClubFair) {
         self.title = clubLocationModel.name
         self.id = clubLocationModel.code
         self.imageUrl = clubLocationModel.imageUrl
-        self.coordinate = CLLocationCoordinate2D(latitude: clubLocationModel.lat, longitude: clubLocationModel.lon)
+        self.coordinate = CLLocationCoordinate2D(latitude: clubLocationModel.lat, longitude: clubLocationModel.long)
         self.callout = clubLocationModel.subtitle
     }
 }

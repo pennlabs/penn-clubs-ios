@@ -8,6 +8,19 @@
 import Foundation
 import SwiftUI
 
+struct IntegerOrBool: Codable {
+    var value: Int
+
+    init(from decoder: Decoder) throws {
+        if let int = try? Int(from: decoder) {
+            value = int
+            return
+        }
+
+        value = -1
+    }
+}
+
 struct ExtendedClub: Codable, Identifiable, Equatable {
     
     static func == (lhs: ExtendedClub, rhs: ExtendedClub) -> Bool {
@@ -16,6 +29,15 @@ struct ExtendedClub: Codable, Identifiable, Equatable {
     
     var id: String {
         return code
+    }
+    
+    var isOwner: Bool {
+        return isMember.value == 0 || isMember.value == 10
+//        return false
+    }
+
+    var memberType: Int {
+        return isMember.value
     }
     
     let acceptingMembers: Bool
@@ -32,10 +54,13 @@ struct ExtendedClub: Codable, Identifiable, Equatable {
     let favoriteCount: Int?
     let founded: Date?
     let imageURL: String?
+    let isMember: IntegerOrBool
+    
+    
     
     // is var to seamless UI updates setting when user is acting as guest user
     var isFavorite: Bool
-    let isSubscribe: Bool
+    var isSubscribe: Bool
     
     let membershipCount: Int
     let recuritingCycleClassification: Int
@@ -67,9 +92,8 @@ struct ExtendedClub: Codable, Identifiable, Equatable {
     }
     
     var contactsIcon: [String] {
-        return ["1", "2", "3", "4", "5", "6", "7"]
+        return ["facebook", "github", "instagram", "linkedin", "twitter", "website", "youtube"]
     }
-    
     
     enum CodingKeys: String, CodingKey {
         case acceptingMembers = "accepting_members"
@@ -78,6 +102,7 @@ struct ExtendedClub: Codable, Identifiable, Equatable {
         case applicationRequiredClassification = "application_required"
         case appointmentNeeded = "appointment_needed"
         case approved
+        case isMember = "is_member"
         
         case code
         case email

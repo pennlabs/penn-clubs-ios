@@ -86,7 +86,6 @@ public class Storage {
                 let model = try decoder.decode(type, from: data)
                 return model
             } catch {
-                print(error)
                 fatalError(error.localizedDescription)
             }
         } else {

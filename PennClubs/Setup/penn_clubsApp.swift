@@ -6,6 +6,8 @@
 //
 
 import SwiftUI
+import Kingfisher
+import Firebase
 
 @main
 struct penn_clubsApp: App {
@@ -16,10 +18,9 @@ struct penn_clubsApp: App {
     @StateObject var clubsMapVM = ClubsMapViewModel()
     
     init() {
-        LoginManager.setupCredentials(clientID: "CJmaheeaQ5bJhRL0xxlxK3b8VEbLb3dMfUAvI2TN", redirectURI: "https://pennlabs.org/pennmobile/ios/callback/")
+        FirebaseApp.configure()
+        WKPennLogin.setupCredentials(clientID: "CJmaheeaQ5bJhRL0xxlxK3b8VEbLb3dMfUAvI2TN", redirectURI: "https://pennlabs.org/pennmobile/ios/callback/")
     }
-    
-    @State var test = true
     
     var body: some Scene {
         WindowGroup {
@@ -27,7 +28,7 @@ struct penn_clubsApp: App {
                 if loginManager.loginState != .loggedOut {
                     ContentView()
                 }
-                
+
                 LoginSplashScreen()
                     .opacity(loginManager.loginState == .loggedOut ? 1 : 0)
                     .animation(.default)

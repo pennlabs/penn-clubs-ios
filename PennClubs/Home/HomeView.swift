@@ -29,7 +29,7 @@ struct HomeView: View {
             }
             .pickerStyle(SegmentedPickerStyle())
             .padding(.horizontal)
-            
+
             ZStack {
                 if homeViewModel.isLoading {
                     VStack {
@@ -38,22 +38,29 @@ struct HomeView: View {
                         Spacer()
                     }
                 }
-                
+
                 if pickerIndex == 0 {
                     if (homeViewModel.bookmarkedEvents.count != 0) {
                         EventsView(events: homeViewModel.bookmarkedEvents)
+                            .onAppear {
+                                homeViewModel.getEventsOfInterest(isLoggedIn: loginManager.isLoggedIn)
+                            }
                     } else if (!homeViewModel.isLoading) {
                         if (homeViewModel.bookmarkedClubs.count == 0) {
                             Text("You don't seem to have bookmarked any clubs. Bookmark clubs to see their events appear here!")
+                                // TODO extract this into common modifier
+                                .multilineTextAlignment(.center)
                                 .padding()
                         } else {
                             Text("None of your clubs seems to have registered events on Penn Clubs.")
+                                .multilineTextAlignment(.center)
                                 .padding()
                         }
                     }
                 } else if pickerIndex == 1 {
                     if (!homeViewModel.isLoading && homeViewModel.bookmarkedClubs.count == 0) {
                         Text("You don't seem to have bookmarked any clubs. Bookmark clubs to see them appear here!")
+                            .multilineTextAlignment(.center)
                             .padding()
                     } else {
                         List(homeViewModel.bookmarkedClubs) { club in
@@ -61,10 +68,14 @@ struct HomeView: View {
                                 ClubRow(for: club)
                             }
                         }
+                        .onAppear {
+                            homeViewModel.getBookmarkedClubs(isLoggedIn: loginManager.isLoggedIn)
+                        }
                     }
                 } else {
-                    if (!homeViewModel.isLoading && homeViewModel.bookmarkedClubs.count == 0) {
+                    if (!homeViewModel.isLoading && homeViewModel.subscribedClubs.count == 0) {
                         Text("You don't seem to have subscribed to any clubs. Subscribe to clubs to see them appear here!")
+                            .multilineTextAlignment(.center)
                             .padding()
                     } else {
                         List(homeViewModel.subscribedClubs) { club in
@@ -72,22 +83,20 @@ struct HomeView: View {
                                 ClubRow(for: club)
                             }
                         }
+                        .onAppear {
+                            homeViewModel.getSubscriptionClubs(isLoggedIn: loginManager.isLoggedIn)
+                        }
                     }
                 }
             }
-            
+
             Spacer()
         }
         .onAppear {
-            print("dlaksj")
-            withAnimation {
-                homeViewModel.fetchData(loginManager.isLoggedIn)
-            }
+            homeViewModel.fetchData(loginManager.isLoggedIn)
         }
         .onChange(of: loginManager.isLoggedIn) { isLoggedIn in
-            withAnimation {
-                homeViewModel.fetchData(isLoggedIn)
-            }
+            homeViewModel.fetchData(isLoggedIn)
         }
     }
 }

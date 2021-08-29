@@ -15,16 +15,25 @@ protocol AlertType {
 }
 
 enum Success: String, AlertType {
+    
     case success = "Success"
     case easterEgg = "Easter Egg"
     
-    var title: String { self.rawValue }
+    var title: String {
+        switch self {
+        case .success:
+            return "Success"
+        case .easterEgg:
+            return "Easter Egg"
+        }
+    }
+    
     var description: String {
         switch self {
         case .success:
-            return "Success!"
+            return "Your information has been successfully updated!"
         case .easterEgg:
-            return "You discovered the easter egg! From the creators of this app, thank you for using Penn Clubs"
+            return "You discovered the easter egg! From the creators of this app, thank you for using Penn Clubs."
         }
     }
     

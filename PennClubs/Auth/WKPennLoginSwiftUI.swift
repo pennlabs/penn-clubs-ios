@@ -9,31 +9,25 @@ import Foundation
 import SwiftUI
 import WebKit
 
-struct WKPennLoginSwiftUI: UIViewRepresentable {
+struct WKPennLoginView: UIViewControllerRepresentable {
     @Environment(\.presentationMode) var presentationMode
     @EnvironmentObject var loginManager: LoginManager
-    @State var geometry: GeometryProxy
     
-    func makeUIView(context: Context) -> WKWebView {
-        let webConfiguration = WKWebViewConfiguration()
-        webConfiguration.websiteDataStore = .nonPersistent()
-        
-        return WKPennLoginController(frame: geometry.frame(in: .local), configuration: webConfiguration, delegate: self)
+    func makeUIViewController(context: Context) -> UIViewController {
+        return WKPennLoginController(delegate: self)
     }
     
-    func updateUIView(_ uiView: WKWebView, context: Context) {
-        
-    }
+    func updateUIViewController(_ uiViewController: UIViewController, context: Context) { }
 }
 
-extension WKPennLoginSwiftUI: WKPennLoginDelegate {
+extension WKPennLoginView: WKPennLoginDelegate {
     func handleLogin(user: WKPennUser) {
         loginManager.loginState = .loggedIn
         presentationMode.wrappedValue.dismiss()
     }
      
     func handleError(error: WKPennLoginError) {
+        AlertManager.shared.toggleAlertType(for: NetworkingError.serverError)
         presentationMode.wrappedValue.dismiss()
     }
 }
-

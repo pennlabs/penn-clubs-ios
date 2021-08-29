@@ -11,12 +11,14 @@ import SwiftUI
 class ClubsMapViewModel: ObservableObject {
     
     @Published var region = MKCoordinateRegion(center: .init(latitude: 39.951830, longitude: -75.194855), latitudinalMeters: 600, longitudinalMeters: 600)
-    @Published var clubFairLocations = [ClubFairLocation]()
+    @Published var clubFairLocations = [ClubFair]()
     @Published var searchClubName = [String]()
     
     @Published var clubSelectionFilter = false
     
-    private var allClubFairLocations = [ClubFairLocation]()
+    @Published var reset = false
+    
+    private var allClubFairLocations = [ClubFair]()
 
     init() {
         fetchClubFairLocations()
@@ -24,12 +26,13 @@ class ClubsMapViewModel: ObservableObject {
     
     func fetchClubFairLocations() {
         MapsAPI.instance.getClubsFairLocation { result in
+            self.reset.toggle()
             switch result {
             case .success(let clubFairLocations):
                 self.allClubFairLocations = clubFairLocations
                 self.clubFairLocations = clubFairLocations
             case .failure(let error):
-                print(error)
+                AlertManager.shared.toggleAlertType(for: error)
             }
         }
     }

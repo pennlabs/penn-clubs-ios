@@ -50,25 +50,21 @@ struct MoreView: View {
                                   selected: $settingsVM.profile.major)
                 }
                 
-                Section(header: Text("Clubs")) {
-                    ForEach(settingsVM.clubMemberships, id: \.self.club.id) { clubMembership in
-                        NavigationLink(destination: MembershipSettingsView(settingsVM: settingsVM, clubMembership: clubMembership)) {
-                            Text(clubMembership.club.name)
-                        }
-                    }
-                }
+                Button("Update Profile", action: settingsVM.updateProfile)
+                    .disabled(settingsVM.profile == settingsVM.cached_profile)
+                
+//                Section(header: Text("Clubs")) {
+//                    ForEach(settingsVM.clubMemberships, id: \.self.club.id) { clubMembership in
+//                        NavigationLink(destination: MembershipSettingsView(settingsVM: settingsVM, clubMembership: clubMembership)) {
+//                            Text(clubMembership.club.name)
+//                        }
+//                    }
+//                }
             } else {
-                Text("Please login to view and update your profile")
+                Text("Please login to view your profile")
+                    .multilineTextAlignment(.center)
             }
-            
-            
-//            Button("done", action: simpleSuccess)
-//            
-//            Button("Update Profile", action: settingsVM.updateProfile)
-//                .disabled(!settingsVM.profileHasChanged())
-        }.onAppear {
-            settingsVM.fetchData(loginManager.isLoggedIn)
-        }.onChange(of: loginManager.isLoggedIn, perform: settingsVM.fetchData)
+        }
     }
 
     func simpleSuccess() {

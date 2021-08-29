@@ -17,7 +17,7 @@ struct OverviewView: View {
     
     var body: some View {
         ScrollView {
-            VStack(alignment: .leading, spacing: 5) {
+            VStack(alignment: .leading, spacing: 7) {
                 Group {
                     Text("Basic Info")
                         .font(.system(.title3))
@@ -44,8 +44,9 @@ struct OverviewView: View {
                             if let contact = contact, let url = URL(string: contact) {
                                 Label {
                                     Link(contact, destination: url)
+                                        .lineLimit(1)
                                 } icon: {
-                                    Image(systemName: "placeholdertext.fill")
+                                    Image(icon).resizable().frame(width: 20, height: 20)
                                 }
                             }
                         }
@@ -58,7 +59,7 @@ struct OverviewView: View {
                     Text("How to Get Involved")
                         .font(.system(.title3))
                         .fontWeight(.bold)
-                    
+
                     Text((try? SwiftSoup.parse(club.getInvolvedDescription).text()) ?? "Error")
                 }
             }.padding()

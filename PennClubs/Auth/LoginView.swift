@@ -10,11 +10,9 @@ import SwiftUI
 struct LoginView: View {
     var body: some View {
         NavigationView {
-            GeometryReader { reader in
-                WKPennLoginSwiftUI(geometry: reader)
-            }
-            .navigationTitle("Login")
-            .navigationBarTitleDisplayMode(.inline)
+            WKPennLoginView()
+                .navigationTitle("Login")
+                .navigationBarTitleDisplayMode(.inline)
         }
     }
 }

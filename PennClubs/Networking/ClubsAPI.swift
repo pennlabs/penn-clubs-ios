@@ -53,23 +53,29 @@ class ClubsAPI {
         decoder.dateDecodingStrategy = .formatted(dateFormatter)
         
         AF.request(request).responseDecodable(of: Club.self, decoder: decoder) { response in
-            if let clubDetails = response.value {
+            switch response.result {
+            case .success(let clubDetails):
                 return completion(.success(clubDetails))
-            } else {
+            case .failure(.sessionTaskFailed):
+                return completion(.failure(.noInternet))
+            case .failure:
                 return completion(.failure(.serverError))
             }
         }
     }
     
     func fetchClubFaq(for code: String, _ completion: @escaping (_ result: Result<[QuestionAnswer], NetworkingError>) -> Void) {
-        let url = URL(string: self.clubsURL + code + "/questions/")!
+        let url = URL(string: self.clubsURL)!
+        let clubUrl = url.appendingPathComponent(code)
+        let faqUrl = clubUrl.appendingPathComponent("questions")
         
-        let request = URLRequest(url: url)
-        
-        AF.request(request).responseDecodable(of: [QuestionAnswer].self) { response in
-            if let questionAnswers = response.value {
+        AF.request(faqUrl).responseDecodable(of: [QuestionAnswer].self) { response in
+            switch response.result {
+            case .success(let questionAnswers):
                 return completion(.success(questionAnswers))
-            } else {
+            case .failure(.sessionTaskFailed):
+                return completion(.failure(.noInternet))
+            case .failure:
                 return completion(.failure(.serverError))
             }
         }
@@ -104,7 +110,6 @@ class ClubsAPI {
         let request = URLRequest(url: URL(string: clubSubscriptionUrl)!, accessToken: token)
         
         AF.request(request).responseDecodable(of: [ClubBookmarkResponse].self, decoder: decoder) { response in
-            print(response)
             switch response.result {
             case .success(let clubSubscriptionResponse):
                 return completion(.success(clubSubscriptionResponse.map({ $0.club })))
@@ -115,8 +120,64 @@ class ClubsAPI {
             }
         }
     }
-    
-    func getEvents(for clubCode: String) {
-        
+
+    func postSubscribeClub(token: WKAccessToken, clubCode: String, _ completion: @escaping (_ result: Result<Void, NetworkingError>) -> Void) {
+        AF.request(URL(string: "https://pennclubs.com/api/subscriptions/")!, method: .post, parameters: ["club": clubCode], headers: ["Authorization": "Bearer \(token.value)"]).response { response in
+            switch response.result {
+            case .success:
+                return completion(.success(()))
+            case .failure(.sessionTaskFailed):
+                return completion(.failure(.noInternet))
+            case .failure:
+                return completion(.failure(.serverError))
+            }
+        }
     }
+
+    func deleteSubscribeClub(token: WKAccessToken, clubCode: String, _ completion: @escaping (_ result: Result<Void, NetworkingError>) -> Void) {
+        var request = URLRequest(url: URL(string: "https://pennclubs.com/api/subscriptions/\(clubCode)/")!, accessToken: token)
+        request.method = .delete
+
+        AF.request(request).validate(statusCode: 200..<300).response { response in
+            switch response.result {
+            case .success:
+                return completion(.success(()))
+            case .failure(.sessionTaskFailed):
+                return completion(.failure(.noInternet))
+            case .failure:
+                return completion(.failure(.serverError))
+            }
+        }
+    }
+
+    func postBookmarkClub(token: WKAccessToken, clubCode: String, _ completion: @escaping (_ result: Result<Void, NetworkingError>) -> Void) {
+        AF.request(URL(string: "https://pennclubs.com/api/favorites/")!, method: .post, parameters: ["club": clubCode], headers: ["Authorization": "Bearer \(token.value)"]).validate(statusCode: 200..<300).response { response in
+            switch response.result {
+            case .success:
+                return completion(.success(()))
+            case .failure(.sessionTaskFailed):
+                return completion(.failure(.noInternet))
+            case .failure:
+                return completion(.failure(.serverError))
+            }
+        }
+    }
+
+    func deleteBookmarkClub(token: WKAccessToken, clubCode: String, _ completion: @escaping (_ result: Result<Void, NetworkingError>) -> Void) {
+        var request = URLRequest(url: URL(string: "https://pennclubs.com/api/favorites/\(clubCode)/")!, accessToken: token)
+        request.method = .delete
+
+        AF.request(request).validate(statusCode: 200..<300).response { response in
+            switch response.result {
+            case .success:
+                return completion(.success(()))
+            case .failure(.sessionTaskFailed):
+                return completion(.failure(.noInternet))
+            case .failure:
+                return completion(.failure(.serverError))
+            }
+        }
+    }
+    
+    
 }

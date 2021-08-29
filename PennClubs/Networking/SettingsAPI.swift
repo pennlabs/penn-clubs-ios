@@ -32,29 +32,13 @@ class SettingsAPI {
             let request = URLRequest(url: url, accessToken: token)
             
             AF.request(request).responseDecodable(of: Profile.self) { response in
-                if let profile = response.value {
+                switch response.result {
+                case .success(let profile):
                     return completion(.success(profile))
-                } else {
-                    return completion(.failure(.parsingError))
-                }
-            }
-        }
-    }
-    
-    func fetchClubMembership(_ completion: @escaping (_ result: Result<[Club], NetworkingError>) -> Void) {
-        WKPennNetworkManager.instance.getAccessToken { token in
-            guard let token = token else {
-                return completion(.failure(.authenticationError))
-            }
-            
-            let url = URL(string: self.membershipUrl)!
-            let request = URLRequest(url: url, accessToken: token)
-            
-            AF.request(request).responseDecodable(of: [Club].self) { response in
-                if let clubs = response.value {
-                    return completion(.success(clubs))
-                } else {
-                    return completion(.failure(.parsingError))
+                case .failure(.sessionTaskFailed):
+                    return completion(.failure(.noInternet))
+                case .failure:
+                    return completion(.failure(.serverError))
                 }
             }
         }
@@ -70,10 +54,13 @@ class SettingsAPI {
             let request = URLRequest(url: url, accessToken: token)
         
             AF.request(request).responseDecodable(of: [Major].self) { response in
-                if let majors = response.value {
+                switch response.result {
+                case .success(let majors):
                     return completion(.success(majors))
-                } else {
-                    return completion(.failure(.parsingError))
+                case .failure(.sessionTaskFailed):
+                    return completion(.failure(.noInternet))
+                case .failure:
+                    return completion(.failure(.serverError))
                 }
             }
         }
@@ -89,10 +76,13 @@ class SettingsAPI {
             let request = URLRequest(url: url, accessToken: token)
         
             AF.request(request).responseDecodable(of: [School].self) { response in
-                if let schools = response.value {
+                switch response.result {
+                case .success(let schools):
                     return completion(.success(schools))
-                } else {
-                    return completion(.failure(.parsingError))
+                case .failure(.sessionTaskFailed):
+                    return completion(.failure(.noInternet))
+                case .failure:
+                    return completion(.failure(.serverError))
                 }
             }
         }
@@ -113,18 +103,19 @@ class SettingsAPI {
             decoder.dateDecodingStrategy = .formatted(dateFormatter)
             
             AF.request(request).responseDecodable(of: [ClubMembership].self, decoder: decoder) { response in
-                print(response)
-                if let clubMembership = response.value {
-                    return completion(.success(clubMembership))
-                } else {
-                    return completion(.failure(.parsingError))
+                switch response.result {
+                case .success(let clubsMembership):
+                    return completion(.success(clubsMembership))
+                case .failure(.sessionTaskFailed):
+                    return completion(.failure(.noInternet))
+                case .failure:
+                    return completion(.failure(.serverError))
                 }
             }
         }
     }
     
-    
-    func updateProfile(for profile: Profile, completion: @escaping (_ success: Result<Profile, NetworkingError>) -> Void) {
+    func updateProfile(for profile: Profile, completion: @escaping (_ success: Result<Void, NetworkingError>) -> Void) {
         WKPennNetworkManager.instance.getAccessToken { token in
             guard let token = token else {
                 return completion(.failure(.authenticationError))
@@ -134,19 +125,17 @@ class SettingsAPI {
             let updateProfileData = try? encoder.encode(profile)
             
             let url = URL(string: self.profileUrl)!
-            let request = URLRequest(url: url, accessToken: token, method: .patch, body: updateProfileData)
+            var request = URLRequest(url: url, accessToken: token, method: .patch, body: updateProfileData)
+            request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
             
-//            print(updateProfileData)
-            
-            AF.request(request).responseString {
-                print($0)
-            }
-            
-            AF.request(request).responseDecodable(of: Profile.self) { response in
-                if let profile = response.value {
-                    return completion(.success(profile))
-                } else {
-                    return completion(.failure(.parsingError))
+            AF.request(request).validate(statusCode: 200..<300).responseDecodable(of: Profile.self) { response in
+                switch response.result {
+                case .success:
+                    return completion(.success(()))
+                case .failure(.sessionTaskFailed):
+                    return completion(.failure(.noInternet))
+                case .failure:
+                    return completion(.failure(.serverError))
                 }
             }
         }

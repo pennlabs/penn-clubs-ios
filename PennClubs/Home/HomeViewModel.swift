@@ -18,10 +18,7 @@ class HomeViewModel: ObservableObject {
         isLoading = true
         getBookmarkedClubs(isLoggedIn: isLoggedIn)
         getEventsOfInterest(isLoggedIn: isLoggedIn)
-        
-        if isLoggedIn {
-            getSubscriptionClubs()
-        }
+        getSubscriptionClubs(isLoggedIn: isLoggedIn)
     }
     
     func getBookmarkedClubs(isLoggedIn: Bool) {
@@ -73,19 +70,21 @@ class HomeViewModel: ObservableObject {
         }
     }
     
-    func getSubscriptionClubs() {
-        WKPennNetworkManager.instance.getAccessToken { token in
-            guard let token = token else {
-                AlertManager.shared.toggleAlertType(for: NetworkingError.authenticationError)
-                return
-            }
-            
-            ClubsAPI.instance.getSubscriptionClub(token: token) { result in
-                switch result {
-                case .success(let clubs):
-                    self.subscribedClubs = clubs
-                case .failure(let error):
-                    AlertManager.shared.toggleAlertType(for: error)
+    func getSubscriptionClubs(isLoggedIn: Bool) {
+        if isLoggedIn {
+            WKPennNetworkManager.instance.getAccessToken { token in
+                guard let token = token else {
+                    AlertManager.shared.toggleAlertType(for: NetworkingError.authenticationError)
+                    return
+                }
+                
+                ClubsAPI.instance.getSubscriptionClub(token: token) { result in
+                    switch result {
+                    case .success(let clubs):
+                        self.subscribedClubs = clubs
+                    case .failure(let error):
+                        AlertManager.shared.toggleAlertType(for: error)
+                    }
                 }
             }
         }
@@ -111,27 +110,33 @@ class HomeViewModel: ObservableObject {
             }
         } else {
             DispatchQueue.main.async {
-                var temp: [Event] = []
-                var count = 0
-                for code in UserDefaults.standard.getBookmarkedClubCodes() {
-                    EventsAPI.instance.getClubEvent(for: code) { result in
-                        count += 1
-                        switch result {
-                        case .success(let events):
-                            temp.append(contentsOf: events)
-                        case .failure(let error):
-                            AlertManager.shared.toggleAlertType(for: error)
-                        }
+                if (UserDefaults.standard.getBookmarkedClubCodes().count == 0) {
+                    self.isLoading = false
+                    self.bookmarkedEvents = []
+                } else {
+                    var temp: [Event] = []
+                    var count = 0
+                    
+                    for code in UserDefaults.standard.getBookmarkedClubCodes() {
+                        EventsAPI.instance.getClubEvent(for: code) { result in
+                            count += 1
+                            switch result {
+                            case .success(let events):
+                                temp.append(contentsOf: events)
+                            case .failure(let error):
+                                AlertManager.shared.toggleAlertType(for: error)
+                            }
 
-                        if (count == UserDefaults.standard.getBookmarkedClubCodes().count) {
-                            temp.sort(by: {$0.startTime < $1.endTime})
-                            self.bookmarkedEvents = temp
-                            self.isLoading = false
+                            if (count == UserDefaults.standard.getBookmarkedClubCodes().count) {
+                                temp.sort(by: {$0.startTime < $1.endTime})
+                                self.bookmarkedEvents = temp
+                                self.isLoading = false
+                            }
                         }
                     }
+                    
+                    self.isLoading = false
                 }
-                
-                self.isLoading = false
             }
         }
     }

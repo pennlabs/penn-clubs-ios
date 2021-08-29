@@ -13,15 +13,7 @@ enum LoginState {
     case guest
 }
 
-class LoginManager: ObservableObject {
-    static var clientID: String!
-    static var redirectURI: String!
-    
-    public static func setupCredentials(clientID: String, redirectURI: String) {
-        LoginManager.clientID = clientID
-        LoginManager.redirectURI = redirectURI
-    }
-    
+class LoginManager: ObservableObject {    
     @Published var loginState: LoginState = .loggedOut
     @Published var loginSheetIsDisplayed = false
     @Published var alertIsDisplayed = false

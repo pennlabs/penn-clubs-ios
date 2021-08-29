@@ -11,9 +11,11 @@ import Kingfisher
 
 struct MapView: UIViewRepresentable {
     
-    @Binding var region: MKCoordinateRegion
-    @Binding var clubFairLocations: [ClubFairLocation]
+//    @Binding var region: MKCoordinateRegion
+//    @Binding var clubFairLocations: [ClubFair]
     @Binding var clubSelected: ClubAnnotation?
+    
+    @EnvironmentObject var clubsMapVM : ClubsMapViewModel
     
     let locationManager: CLLocationManager = CLLocationManager()
 
@@ -25,7 +27,7 @@ struct MapView: UIViewRepresentable {
         }
         
         func mapViewDidChangeVisibleRegion(_ mapView: MKMapView) {
-            parent.region = mapView.region
+            parent.clubsMapVM.region = mapView.region
         }
         
         func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
@@ -42,14 +44,14 @@ struct MapView: UIViewRepresentable {
     func makeUIView(context: Context) -> MKMapView {
         let mapView = MKMapView()
         mapView.delegate = context.coordinator
-        mapView.setRegion(region, animated: true)
+        mapView.setRegion(clubsMapVM.region, animated: true)
         mapView.showsCompass = false
         mapView.showsUserLocation = true
         
         mapView.register(ClubAnnotationView.self, forAnnotationViewWithReuseIdentifier: MKMapViewDefaultAnnotationViewReuseIdentifier)
         mapView.register(LocationDataMapClusterView.self, forAnnotationViewWithReuseIdentifier: MKMapViewDefaultClusterAnnotationViewReuseIdentifier)
         
-        for model in clubFairLocations {
+        for model in clubsMapVM.clubFairLocations {
             mapView.addAnnotation(ClubAnnotation(clubLocationModel: model))
         }
         
@@ -68,16 +70,15 @@ struct MapView: UIViewRepresentable {
     }
 
     func updateUIView(_ view: MKMapView, context: Context) {
-        if Set(view.annotations.compactMap { ($0 as? ClubAnnotation)?.id }) != Set(clubFairLocations.map{ $0.code }) {
+//        view.removeAnnotations(view.annotations)
+
+        if (Set(view.annotations.compactMap { ($0 as? ClubAnnotation)?.id }) != Set(clubsMapVM.clubFairLocations.map{ $0.code }) || clubsMapVM.reset) {
+            clubsMapVM.reset = false
             view.removeAnnotations(view.annotations)
 
-            clubFairLocations.forEach { model in
+            clubsMapVM.clubFairLocations.forEach { model in
                 view.addAnnotation(ClubAnnotation(clubLocationModel: model))
             }
-        }
-
-        if view.region != region {
-            view.setRegion(region, animated: true)
         }
     }
 }

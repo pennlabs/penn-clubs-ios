@@ -52,8 +52,6 @@ public class WKPennNetworkManager: NSObject {
         currentAccessToken = nil
     }
 }
-
-// MARK: - Initiate Authentication
 extension WKPennNetworkManager {
     /// Input: One-time code from login
     /// Output: Temporary access token
@@ -66,8 +64,8 @@ extension WKPennNetworkManager {
         let params = [
             "code": code,
             "grant_type": "authorization_code",
-            "client_id": LoginManager.clientID!,
-            "redirect_uri": LoginManager.redirectURI!,
+            "client_id": WKPennLogin.clientID!,
+            "redirect_uri": WKPennLogin.redirectURI!,
             "code_verifier": codeVerifier,
         ]
         
@@ -123,7 +121,7 @@ extension WKPennNetworkManager {
         let params = [
             "refresh_token": refreshToken,
             "grant_type": "refresh_token",
-            "client_id": LoginManager.clientID!,
+            "client_id": WKPennLogin.clientID!,
         ]
         
         request.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")

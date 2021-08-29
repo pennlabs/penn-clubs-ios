@@ -71,15 +71,9 @@ extension Bundle {
             let decoded = try decoder.decode(T.self, from: data)
             return decoded
         } catch {
-        print(error)
+            print(error)
             fatalError("Data does not conform to desired structure")
         }
-        
-//        guard let decoded = try? decoder.decode(T.self, from: data) else {
-//            fatalError("Data does not conform to desired structure")
-//        }
-    
-       
     }
 }
 
@@ -131,6 +125,26 @@ extension Date {
             return "\(start.dayOfWeek), \(start.monthAbbreviated()) \(start.day) | \(start.hourMinute(showSuffix: false)) - \(end.hourMinute())"
         } else {
             return "\(start.dayOfWeek), \(start.monthAbbreviated()) \(start.day) - \(end.dayOfWeek), \(end.monthAbbreviated()) \(end.day)"
+        }
+    }
+    
+    func monthDay() -> String {
+        if (Date().day == self.day && Date().month == self.month) {
+            return "today"
+        } else {
+            return "\(self.monthAbbreviated()) \(self.day)"
+        }
+    }
+    
+    static func humanReadableDurationSameDay(from start: Date, to end: Date) -> String {
+        return "\(start.hourMinute(showSuffix: false)) - \(end.hourMinute())"
+    }
+    
+    func nearestHour() -> Date {
+        if self.minutes == 0 {
+            return self
+        } else {
+            return self.advanced(by: (Double) (60 - self.minutes) * 60)
         }
     }
     
